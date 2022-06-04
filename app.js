@@ -136,9 +136,6 @@ app.listen(3000, () => {
 
 mongoose.Promise = global.Promise;
 
-
-// mongoUrl = "mongodb://192.168.1.111:27017/Company?directConnection=true&appName=mongosh+1.2.3";
-
 mongoUrl = "mongodb://192.168.1.111:27017/Company?directConnection=true&appName=mongosh+1.2.3";
 
 mongoose.connect(mongoUrl, {
