@@ -22,10 +22,6 @@ const SubmitResumeSchema = new mongoose.Schema({
         type: String,
         required: [true, "Provide Your Phone Number"]
     },
-    jobTitle: {
-        type: String,
-        required: [true, "Job Title is required"]
-    },
     address: {
         type: String,
         required: [true, "Provide Address"]
@@ -46,7 +42,7 @@ const SubmitResumeSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    education: {
+    education: [{
         educationTitle: {
             type: String,
             required: [true, "Provide Education Title"]
@@ -63,18 +59,16 @@ const SubmitResumeSchema = new mongoose.Schema({
             type: String,
             required: [true, "Provide year Of Education"]
         }
-    },
-    skill: {
+    }],
+    skill: [{
         skillTitle: {
             type: String,
             required: [true, "Mention Your Skills"]
         }
-    },
-    socialLink: {
-        linkedIn: {
-            type: String,
-            required: false
-        }
+    }],
+    linkedIn: {
+        type: String,
+        required: false
     }
 
 

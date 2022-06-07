@@ -21,9 +21,11 @@ const app = express();
 
 app.use(bodyParser.json());
 
+app.use('/image', express.static(path.join('image/profiles')));
+
 app.use((req, res, next) => {
 
-    res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token, x-refresh-token, _id,*");
     res.header('Access-Control-Allow-Credentials', true);
@@ -67,8 +69,6 @@ app.use('/candidateDetails', candidateDetails);
 app.use('/uploadResume', uploadResumeSubmit);
 
 
-
-
 // get state
 app.get("/get_only_state", (req, res) => {
 
@@ -81,13 +81,13 @@ app.get("/get_only_state", (req, res) => {
 
 //Get Only City
 app.get("/get_only_city", (req, res) => {
-    
+
     onlycity.find({}).then((obj) => {
         res.send(obj)
     }).catch((e) => {
         res.send(e);
     });
-    
+
 })
 
 app.get("/get_only_state/:id", (req, res) => {
@@ -105,7 +105,7 @@ app.get("/get_only_state/:id", (req, res) => {
 
 app.get("/get_city_from_state/:stateId", (req, res) => {
     states.find({
-        id: req.params.stateID
+        id: req.params.stateId
     }).then((obj) => {
         res.send(obj);
     }).catch((e) => {
@@ -116,7 +116,7 @@ app.get("/get_city_from_state/:stateId", (req, res) => {
 app.get("/get_city_from_state/:stateId/:cityId", (req, res) => {
 
     states.find({
-        "_id": req.params.stateId,
+        "id": req.params.stateId,
         "cities.id": req.params.cityId
     },
         {

@@ -4,7 +4,7 @@ const router = express.Router();
 const { json } = require('express/lib/response');
 
 const { company } = require('../db/models/company.model');
-const { signUp } = require('../db/models/signup.model'); 
+const { signUp } = require('../db/models/signup.model');
 
 
 router.post("/", (req, res) => {
@@ -34,5 +34,6 @@ router.post("/", (req, res) => {
         })
     }
 })
+
 
 module.exports = router;

@@ -38,13 +38,54 @@ router.post("/", (req, res) => {
 
 
 router.get('/getResumeData/:mobileNo', (req, res) => {
-    
-    console.log(req.params.mobileNo);
-    
+
     uploadResumes.findOne({
         mobileNo: req.params.mobileNo
     }).then((doc) => {
         res.json(doc);
+    })
+})
+
+router.patch('/updateResume', (req, res) => {
+
+    uploadResumes.updateOne({
+        mobileNo: req.body.mobileNo
+    }, {
+        $set: req.body
+    }).then((doc) => {
+        res.json(doc);
+    }).catch((e) => {
+        res.json(e);
+    })
+})
+
+router.patch('/updateEducation', (req, res) => {
+
+    uploadResumes.updateOne({
+        mobileNo: req.body.mobileNo
+    }, {
+        $set: {
+            education: req.body.education
+        }
+    }).then((doc) => {
+        res.json(doc);
+    }).catch((e) => {
+        res.json(e);
+    })
+})
+
+router.patch('/updateSkill', (req, res) => {
+
+    uploadResumes.updateOne({
+        mobileNo: req.body.mobileNo
+    }, {
+        $set: {
+            skill: req.body.skill
+        }
+    }).then((doc) => {
+        res.json(doc);
+    }).catch((e) => {
+        res.json(e);
     })
 })
 
