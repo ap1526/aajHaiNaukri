@@ -1,18 +1,12 @@
 const express = require('express');
-const multer = require('multer');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const axios = require('axios');
-
-const request = require('request');
-
-
+const multer = require('multer');
 const { json } = require('body-parser');
 const { send } = require('process');
-const e = require('express');
-const HttpClient = require('http');
+
+
 const path = require('path');
-const { trusted } = require('mongoose');
 
 const { onlycity } = require('./db/models');
 const { states } = require('./db/models/state.model')
@@ -21,11 +15,11 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.use('/image', express.static(path.join('image/profiles')));
+
 
 app.use((req, res, next) => {
 
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "http://localhost:4200");
     res.header("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token, x-refresh-token, _id,*");
     res.header('Access-Control-Allow-Credentials', true);
@@ -51,8 +45,7 @@ const SubmitResume = require('./routes/submitResume');
 const Otp = require('./routes/SendOtp');
 const candidateDetails = require('./routes/CandidateDetails');
 const uploadResumeSubmit = require('./routes/uploadResumeSubmit');
-
-
+// const skills = require('./routes/skill');
 
 
 app.use('/resume', uploadResumePDF);
@@ -67,6 +60,8 @@ app.use('/submitResume', SubmitResume);
 app.use('/send_otp', Otp);
 app.use('/candidateDetails', candidateDetails);
 app.use('/uploadResume', uploadResumeSubmit);
+// app.use('/skill', skills);
+
 
 
 // get state
@@ -77,7 +72,7 @@ app.get("/get_only_state", (req, res) => {
     }).catch((e) => {
         res.send(e);
     });
-})
+});
 
 //Get Only City
 app.get("/get_only_city", (req, res) => {
@@ -88,7 +83,7 @@ app.get("/get_only_city", (req, res) => {
         res.send(e);
     });
 
-})
+});
 
 app.get("/get_only_state/:id", (req, res) => {
 
@@ -99,7 +94,7 @@ app.get("/get_only_state/:id", (req, res) => {
     }).catch((e) => {
         res.send(e);
     });
-})
+});
 
 // get city
 
@@ -111,7 +106,7 @@ app.get("/get_city_from_state/:stateId", (req, res) => {
     }).catch((e) => {
         res.send(e);
     });
-})
+});
 
 app.get("/get_city_from_state/:stateId/:cityId", (req, res) => {
 
@@ -127,12 +122,12 @@ app.get("/get_city_from_state/:stateId/:cityId", (req, res) => {
             res.send(e);
         });
 
-})
+});
 
 
 app.listen(3000, () => {
     console.log("Listening On Port 3000!")
-})
+});
 
 mongoose.Promise = global.Promise;
 

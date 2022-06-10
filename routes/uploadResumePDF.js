@@ -1,27 +1,31 @@
-const { Router } = require('express');
 const express = require('express');
-const { json } = require('express/lib/response');
+const path = require('path');
 const router = express.Router();
 const multer = require('multer');
 
+// router.use('/image', express.static(path.join('../image/resumes')));
+
 const resumeFile = multer.diskStorage({
-    destination: (req, res, cb) => {
-        cb(null, '../image/resumes')
+    destination: (req, file, cb) => {
+        let uploadPath = path.join('image/resumes');
+        cb(null, uploadPath)
     },
     filename: (req, file, cb) => {
         cb(null, 'RESUME_' + Date.now() + '_' + file.originalname.toUpperCase());
     }
-})
+});
 
 
 const uploadResume = multer({ storage: resumeFile }).single('file');
 
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
+    
     try{
         uploadResume(req, res, function (err) {
             if (err) {
                 return res.status(501).json({ error: err });
             } else {
+                console.log(req.file.originalname);
                 return res.json({ originalname: req.file.originalname, uploadname: req.file.filename });
             }
         })

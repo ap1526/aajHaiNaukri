@@ -1,26 +1,25 @@
-const { Router } = require('express');
 const express = require('express');
-const { json } = require('express/lib/response');
+const path = require('path');
 const router = express.Router();
 const multer = require('multer');
-const fs = require('fs');
-const { uploadResumes } = require('../db/models');
+
 
 const profileImagefile = multer.diskStorage({
 
     destination: (req, res, cb) => {
-        cb(null, '../image/profiles')
+        let uploadPath = path.join('image/profiles');
+        cb(null, uploadPath)
     },
     filename: (req, file, cb) => {
         cb(null, 'PROFILE_' + Date.now() + '_' + file.originalname.toUpperCase());
     }
 })
-console.log("hello1");
+
 
 const uploadProfile = multer({ storage: profileImagefile }).single('file');
 
 router.post('/', (req, res) => {
-    console.log("hello2");
+    
     uploadProfile(req, res, function (err) {
 
         if (err) {
@@ -30,6 +29,7 @@ router.post('/', (req, res) => {
         }
     })
 });
+
 
 router.get('/deleteProfile/:mobileNo/:filepath', (req, res) => {
 
@@ -50,6 +50,7 @@ router.get('/deleteProfile/:mobileNo/:filepath', (req, res) => {
         res.send(err);
         console.log(err);
     }
-})
+});
+
 
 module.exports = router;

@@ -66,11 +66,20 @@ const SubmitResumeSchema = new mongoose.Schema({
             required: [true, "Mention Your Skills"]
         }
     }],
-    linkedIn: {
-        type: String,
-        required: false
+    socialLink: {
+        linkedin: {
+            type: String,
+            required: false
+        },
+        facebook: {
+            type: String,
+            required: false
+        },
+        instagram: {
+            type: String,
+            required: false
+        }
     }
-
 
 });
 
