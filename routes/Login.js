@@ -7,6 +7,7 @@ const { company } = require('../db/models/company.model');
 const { signUp } = require('../db/models/signup.model');
 
 
+
 router.post("/", (req, res) => {
 
     //login as Candidate

@@ -17,6 +17,7 @@ const SignupSchema = new mongoose.Schema({
     },
     email: {
         type: String,
+        unique: [true, 'Already In Use'], 
         required: [true, 'Email Is Required']
     },
     mobileNo: {

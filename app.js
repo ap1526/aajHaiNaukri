@@ -45,7 +45,8 @@ const SubmitResume = require('./routes/submitResume');
 const Otp = require('./routes/SendOtp');
 const candidateDetails = require('./routes/CandidateDetails');
 const uploadResumeSubmit = require('./routes/uploadResumeSubmit');
-// const skills = require('./routes/skill');
+const skills = require('./routes/skill');
+const AdminSignUp = require('./routes/auth');
 
 
 app.use('/resume', uploadResumePDF);
@@ -60,7 +61,8 @@ app.use('/submitResume', SubmitResume);
 app.use('/send_otp', Otp);
 app.use('/candidateDetails', candidateDetails);
 app.use('/uploadResume', uploadResumeSubmit);
-// app.use('/skill', skills);
+app.use('/skill', skills);
+app.use('/admin_signUp', AdminSignUp);
 
 
 
