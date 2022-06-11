@@ -11,7 +11,7 @@ router.post('/',[
     body('email', 'Enter Valid Email').isEmail(),
     body('mobileNo', 'Moblie Number Should Not Be Less Than 10 Digit!').isLength({ min: 13  }),
     body('mobileNo', 'Moblie Number Should Not Be Greater Than 10 Digit!').isLength({ max: 13  })
-] ,(req, res) => {
+] , async (req, res) => {
     
     const errors = validationResult(req);
     if(!errors.isEmpty()){
@@ -25,17 +25,17 @@ router.post('/',[
                 { mobileNo: req.body.mobileNo },
                 { email: req.body.email }
             ]
-        }).then((user) => {
+        }).then( async (user) => {
             if (user) {
                 if (user.mobileNo === req.body.mobileNo) {
-                    res.status(201).json("Mobile Number already exists");
+                    return res.status(201).json("Mobile Number already exists");
                 }
                 else if (user.email === req.body.email) {
-                    res.status(201).json("Email already exists");
+                    return res.status(201).json("Email already exists");
                 }
             } else {
     
-                let newCompany = new company(req.body)
+                let newCompany = await new company(req.body)
     
                 newCompany.save().then((obj) => {
                     res.status(200).json("Done");

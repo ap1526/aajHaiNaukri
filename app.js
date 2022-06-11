@@ -99,7 +99,6 @@ app.get("/get_only_state/:id", (req, res) => {
 });
 
 // get city
-
 app.get("/get_city_from_state/:stateId", (req, res) => {
     states.find({
         id: req.params.stateId
@@ -109,6 +108,7 @@ app.get("/get_city_from_state/:stateId", (req, res) => {
         res.send(e);
     });
 });
+
 
 app.get("/get_city_from_state/:stateId/:cityId", (req, res) => {
 

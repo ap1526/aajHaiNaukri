@@ -6,12 +6,12 @@ const router = express.Router();
 const { signUp } = require('../db/models/signup.model');
 const { submitResume } = require('../db/models/submitResume.model');
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     signUp.find({
         mobileNo: req.body.mobileNo
-    }).then((doc) => {
+    }).then( async (doc) => {
         if (doc) {
-            let resume = new submitResume(req.body);
+            let resume = await new submitResume(req.body);
 
             resume.save().then(s => res.send(s))
         } else {

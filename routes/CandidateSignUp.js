@@ -23,7 +23,7 @@ router.post('/', [
                 { mobileNo: req.body.mobileNo },
                 { email: req.body.email }
             ]
-        }).then((user) => {
+        }).then( async (user) => {
             if (user) {
                 if (user.mobileNo === req.body.mobileNo) {
                     res.status(201).json("Mobile Number already exists");
@@ -33,7 +33,7 @@ router.post('/', [
                 }
             } else {
     
-                const newUser = new signUp(req.body);
+                const newUser = await new signUp(req.body);
     
                 newUser.save().then((obj) => {
                     res.status(200).json("Done");
