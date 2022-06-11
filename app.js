@@ -14,7 +14,7 @@ const { states } = require('./db/models/state.model')
 const app = express();
 
 app.use(bodyParser.json());
-
+app.use('/image', express.static(path.join('image/profiles')));
 
 
 app.use((req, res, next) => {
@@ -46,7 +46,7 @@ const Otp = require('./routes/SendOtp');
 const candidateDetails = require('./routes/CandidateDetails');
 const uploadResumeSubmit = require('./routes/uploadResumeSubmit');
 const skills = require('./routes/skill');
-const AdminSignUp = require('./routes/auth');
+const Auth = require('./routes/auth');
 
 
 app.use('/resume', uploadResumePDF);
@@ -62,7 +62,7 @@ app.use('/send_otp', Otp);
 app.use('/candidateDetails', candidateDetails);
 app.use('/uploadResume', uploadResumeSubmit);
 app.use('/skill', skills);
-app.use('/admin_signUp', AdminSignUp);
+app.use('/admin', Auth);
 
 
 

@@ -3,7 +3,7 @@ const path = require('path');
 const router = express.Router();
 const multer = require('multer');
 
-// router.use('/image', express.static(path.join('../image/resumes')));
+
 
 const resumeFile = multer.diskStorage({
     destination: (req, file, cb) => {

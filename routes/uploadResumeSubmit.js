@@ -87,6 +87,21 @@ router.patch('/updateSkill', (req, res) => {
     }).catch((e) => {
         res.json(e);
     })
-})
+});
+
+router.patch('/updateSociallink', (req, res) => {
+
+    uploadResumes.updateOne({
+        mobileNo: req.body.mobileNo
+    }, {
+        $set: {
+            socialLink: req.body.socialLink
+        }
+    }).then((doc) => {
+        res.json(doc);
+    }).catch((e) => {
+        res.json(e);
+    })
+});
 
 module.exports = router;
