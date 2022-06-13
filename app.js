@@ -47,6 +47,7 @@ const candidateDetails = require('./routes/CandidateDetails');
 const uploadResumeSubmit = require('./routes/uploadResumeSubmit');
 const skills = require('./routes/skill');
 const Auth = require('./routes/auth');
+const mobileEmail = require('./routes/mobile-emailExist');
 
 
 app.use('/resume', uploadResumePDF);
@@ -63,6 +64,7 @@ app.use('/candidateDetails', candidateDetails);
 app.use('/uploadResume', uploadResumeSubmit);
 app.use('/skill', skills);
 app.use('/admin', Auth);
+app.use('/exist', mobileEmail);
 
 
 

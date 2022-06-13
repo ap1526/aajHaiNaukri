@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const router = express.Router();
 const multer = require('multer');
+const fs = require('fs');
 
 
 const profileImagefile = multer.diskStorage({
@@ -19,7 +20,7 @@ const profileImagefile = multer.diskStorage({
 const uploadProfile = multer({ storage: profileImagefile }).single('file');
 
 router.post('/', (req, res) => {
-    
+
     uploadProfile(req, res, function (err) {
 
         if (err) {

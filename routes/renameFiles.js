@@ -16,7 +16,18 @@ router.patch("/", (req, res) => {
             resumes: req.body.resume
         }
     }).then(() => {
-        res.status(200).json("true");
+        uploadResumes.findOneAndUpdate({
+            mobileNo: req.body.mobileNo
+        }, {
+            $set:
+            {
+                profileImage: req.body.profile,
+                resumes: req.body.resume
+            }
+        }).then(() => {
+            res.status(200).json(true);
+        })
+        res.status(200).json(true);
     }).catch((e) => {
         res.send(e);
     })
