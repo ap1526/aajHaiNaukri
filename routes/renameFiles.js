@@ -4,9 +4,10 @@ const router = express.Router();
 const { json } = require('express/lib/response');
 
 const { signUp } = require('../db/models/signup.model');
+const { uploadResumes } = require('../db/models/submitResume.model');
 
 router.patch("/", (req, res) => {
-
+    console.log(req.body)
     signUp.updateOne({
         mobileNo: req.body.mobileNo
     }, {
@@ -16,18 +17,18 @@ router.patch("/", (req, res) => {
             resumes: req.body.resume
         }
     }).then(() => {
-        uploadResumes.findOneAndUpdate({
+
+        uploadResumes.updateOne({
             mobileNo: req.body.mobileNo
         }, {
             $set:
             {
-                profileImage: req.body.profile,
-                resumes: req.body.resume
+                profileImage: req.body.profile
             }
         }).then(() => {
-            res.status(200).json(true);
+            res.json(true);
         })
-        res.status(200).json(true);
+        res.json(true);
     }).catch((e) => {
         res.send(e);
     })
