@@ -8,10 +8,10 @@ const multer = require('multer');
 const logofile = multer.diskStorage({
 
     destination: (req, res, cb) => {
-        cb(null, '../companyLogo');
+        cb(null, 'image/companyLogo');
     },
     filename: (req, file, cb) => {
-        cb(null, 'Logo_' + Date.now() + '_' + file.originalname.toUpperCase());
+        cb(null, 'LOGO_' + Date.now() + '_' + file.originalname.toUpperCase());
     }
 })
 

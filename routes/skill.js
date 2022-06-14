@@ -3,42 +3,71 @@ const express = require('express');
 const router = express.Router();
 const { json } = require('express/lib/response');
 
-const { Sector, Category, Field } = require('../db/models/skill.model');
+const { MainSkill, SubSkill, Skill } = require('../db/models/skill.model');
 
 
-router.post('/sector', (req, res) => {
-    
-    let sector = new Sector(req.body);
-    
-    sector.save().then((response) => {
+router.post('/mainSkill', (req, res) => {
+
+    let skill = new MainSkill(req.body);
+
+    skill.save().then((response) => {
         res.send(response);
     }).catch((e) => {
         res.send(e);
     })
-    
+
 });
 
-router.post('/category', (req, res) => {
-    
-    let category = new Category(req.body);
-    
-    category.save().then((response) => {
+router.post('/subSkill', (req, res) => {
+
+    let skill = new SubSkill(req.body);
+
+    skill.save().then((response) => {
         res.send(response);
     }).catch((e) => {
         res.send(e);
     })
-    
+
 });
-router.post('/field', (req, res) => {
-    
-    let field = new Field(req.body);
-    
-    field.save().then((response) => {
+router.post('/skills', (req, res) => {
+
+    let skill = new Skill(req.body);
+
+    skill.save().then((response) => {
         res.send(response);
     }).catch((e) => {
         res.send(e);
     })
-    
+
+});
+
+router.get('/mainSkill', async (req, res) => {
+    let mskill = await MainSkill.find({});
+    res.send(mskill);
+})
+
+router.get('/getSkill/:subSkillId', async (req, res) => {
+
+    Skill.find({
+        subSkillId: req.params.subSkillId
+    }).then((printList) => {
+        res.send(printList)
+    }).catch((error) => {
+        res.status(404).send(error);
+    });
+
+});
+
+router.get('/getSubSkill/:mainSkillId', (req, res) => {
+
+    SubSkill.find({
+        mainSkillId: req.params.mainSkillId
+    }).then((printList) => {
+        res.send(printList)
+    }).catch((error) => {
+        res.status(404).send(error);
+    });
+
 });
 
 module.exports = router;

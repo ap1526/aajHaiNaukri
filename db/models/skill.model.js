@@ -1,38 +1,38 @@
 const mongoose = require('mongoose');
 
-const SectorModel = mongoose.Schema({
+const MainSkillModel = mongoose.Schema({
     name: {
         type: String,
         required: true
     }
 });
 
-const CategoryModel = mongoose.Schema({
+const SubSkillModel = mongoose.Schema({
     name: {
         type: String,
         required: true
     },
-    sectorId : {
+    mainSkillId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref:'Sector'
+        ref: 'MainSkill'
     }
 });
 
-const fieldModel = mongoose.Schema({
+const SkillModel = mongoose.Schema({
     name: {
         type: String,
         required: true
     },
-    categoryId : {
-        type : mongoose.Schema.Types.ObjectId,
+    subSkillId: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref:'Category'
+        ref: 'SubSkill'
     }
 })
 
-const Sector = mongoose.model('Sector', SectorModel);
-const Category = mongoose.model('Category', CategoryModel);
-const Field = mongoose.model('Field', fieldModel);
+const MainSkill = mongoose.model('MainSkill', MainSkillModel);
+const SubSkill = mongoose.model('SubSkill', SubSkillModel);
+const Skill = mongoose.model('Skill', SkillModel);
 
-module.exports = { Sector, Category, Field }
+module.exports = { MainSkill, SubSkill, Skill }

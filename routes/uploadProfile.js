@@ -22,7 +22,7 @@ const profileImagefile = multer.diskStorage({
 const uploadProfile = multer({ storage: profileImagefile }).single('file');
 
 router.post('/', async (req, res) => {
-    console.log("hello")
+
     await uploadProfile(req, res, function (err) {
 
         if (err) {
@@ -37,22 +37,28 @@ router.post('/', async (req, res) => {
 router.get('/deleteProfile/:mobileNo/:filepath', async (req, res) => {
 
     const path = './image/profiles/' + req.params.filepath;
-    
-    try {
-        uploadResumes.updateOne({
-            mobileNo: req.params.mobileNo
-        }, {
-            $set: { profileImage: null }
-        }).then(r => {
 
-            signUp.updateOne({ mobileNo: req.params.mobileNo
+    try {
+
+        if (fs.existsSync(path)) {
+
+            uploadResumes.updateOne({
+                mobileNo: req.params.mobileNo
             }, {
                 $set: { profileImage: null }
-            })
+            }).then(r => {
 
-            fs.unlinkSync(path);
-            res.send("done");
-        })
+                signUp.updateOne({
+                    mobileNo: req.params.mobileNo
+                }, {
+                    $set: { profileImage: null }
+                })
+
+                fs.unlinkSync(path);
+                res.json("done");
+            })
+        }
+
 
         //file removed
     } catch (err) {
