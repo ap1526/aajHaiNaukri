@@ -4,6 +4,8 @@ const router = express.Router();
 const multer = require('multer');
 const fs = require('fs');
 
+const { signUp } = require('../db/models/signup.model');
+const { uploadResumes } = require('../db/models/submitResume.model');
 
 const profileImagefile = multer.diskStorage({
 
@@ -19,9 +21,9 @@ const profileImagefile = multer.diskStorage({
 
 const uploadProfile = multer({ storage: profileImagefile }).single('file');
 
-router.post('/', (req, res) => {
-
-    uploadProfile(req, res, function (err) {
+router.post('/', async (req, res) => {
+    console.log("hello")
+    await uploadProfile(req, res, function (err) {
 
         if (err) {
             return res.status(501).json({ error: err });
@@ -32,24 +34,29 @@ router.post('/', (req, res) => {
 });
 
 
-router.get('/deleteProfile/:mobileNo/:filepath', (req, res) => {
+router.get('/deleteProfile/:mobileNo/:filepath', async (req, res) => {
 
     const path = './image/profiles/' + req.params.filepath;
-
+    
     try {
-        fs.unlinkSync(path);
         uploadResumes.updateOne({
             mobileNo: req.params.mobileNo
         }, {
-            $set: {
-                profileImage: ''
-            }
-        }).then(r => res.send("done"))
+            $set: { profileImage: null }
+        }).then(r => {
+
+            signUp.updateOne({ mobileNo: req.params.mobileNo
+            }, {
+                $set: { profileImage: null }
+            })
+
+            fs.unlinkSync(path);
+            res.send("done");
+        })
 
         //file removed
     } catch (err) {
         res.send(err);
-        console.log(err);
     }
 });
 

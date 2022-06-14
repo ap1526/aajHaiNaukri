@@ -7,7 +7,7 @@ const { signUp } = require('../db/models/signup.model');
 const { uploadResumes } = require('../db/models/submitResume.model');
 
 router.patch("/", (req, res) => {
-    console.log(req.body)
+
     signUp.updateOne({
         mobileNo: req.body.mobileNo
     }, {
@@ -16,7 +16,7 @@ router.patch("/", (req, res) => {
             profileImage: req.body.profile,
             resumes: req.body.resume
         }
-    }).then(() => {
+    }).then((r) => {
 
         uploadResumes.updateOne({
             mobileNo: req.body.mobileNo
@@ -25,10 +25,9 @@ router.patch("/", (req, res) => {
             {
                 profileImage: req.body.profile
             }
-        }).then(() => {
-            res.json(true);
+        }).then((r) => {
+            res.json("true");
         })
-        res.json(true);
     }).catch((e) => {
         res.send(e);
     })
