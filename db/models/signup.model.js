@@ -17,7 +17,7 @@ const SignupSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        unique: [true, 'Already In Use'], 
+        unique: [true, 'Already In Use'],
         required: [true, 'Email Is Required']
     },
     mobileNo: {
@@ -26,7 +26,7 @@ const SignupSchema = new mongoose.Schema({
     },
     profileImage: {
         type: String,
-        required: [true, 'Profile Image Is Required']
+        required: false
     },
     address: {
         type: String,
@@ -93,7 +93,7 @@ const SignupSchema = new mongoose.Schema({
         required: [true, 'Expected Salary Field Is Required']
 
     }
-});
+}, { timestamps: true });
 
 
 const signUp = mongoose.model('SignUP', SignupSchema);

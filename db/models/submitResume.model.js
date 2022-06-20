@@ -60,12 +60,23 @@ const SubmitResumeSchema = new mongoose.Schema({
             required: [true, "Provide year Of Education"]
         }
     }],
-    skill: [{
-        skillTitle: {
-            type: String,
-            required: [true, "Mention Your Skills"]
+    skill: {
+        skillId: [{
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'Skill'
+        }],
+        subSkillId: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'SubSkill'
+        },
+        mainSkillId: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'MainSkill'
         }
-    }],
+    },
     socialLink: {
         linkedin: {
             type: String,
@@ -81,7 +92,7 @@ const SubmitResumeSchema = new mongoose.Schema({
         }
     }
 
-});
+}, { timestamps: true });
 
 
 const uploadResumes = mongoose.model('uploadResumes', SubmitResumeSchema);

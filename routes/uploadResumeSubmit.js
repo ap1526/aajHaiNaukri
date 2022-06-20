@@ -24,10 +24,10 @@ router.post("/", (req, res) => {
                             profileImage: req.body.uploadedProfile
                         }
                     }).then((s) => {
-                        res.send(s);
+                        res.json(s);
                     })
                 } else {
-                    res.send(s);
+                    res.json("done");
                 }
             })
         } else {

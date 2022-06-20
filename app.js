@@ -8,7 +8,6 @@ const { send } = require('process');
 
 const path = require('path');
 
-const { onlycity } = require('./db/models');
 const { states } = require('./db/models/state.model')
 
 const app = express();
@@ -24,7 +23,7 @@ app.use((req, res, next) => {
     if (allowedOrigins.includes(origin)) {
         res.setHeader('Access-Control-Allow-Origin', origin);
     }
-    
+
     // res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS, PUT, PATCH, DELETE");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token, x-refresh-token, _id,*");
@@ -87,8 +86,8 @@ app.get("/get_only_state", (req, res) => {
 //Get Only City
 app.get("/get_only_city", (req, res) => {
 
-    onlycity.find({}).then((obj) => {
-        res.send(obj)
+    states.find({}).then((obj) => {
+        res.send(obj[0]['cities'])
     }).catch((e) => {
         res.send(e);
     });
@@ -142,6 +141,7 @@ app.listen(3000, () => {
 mongoose.Promise = global.Promise;
 
 mongoUrl = "mongodb://192.168.1.111:27017/Company?directConnection=true&appName=mongosh+1.2.3";
+//mongoUrl = "mongodb://127.0.0.1:27017/Company?directConnection=true&appName=mongosh+1.2.3";
 
 mongoose.connect(mongoUrl, {
     useNewUrlParser: true

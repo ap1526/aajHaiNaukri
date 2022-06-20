@@ -28,8 +28,13 @@ const SkillModel = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'SubSkill'
+    },
+    mainSkillId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'MainSkill'
     }
-})
+}, { timestamps: true })
 
 const MainSkill = mongoose.model('MainSkill', MainSkillModel);
 const SubSkill = mongoose.model('SubSkill', SubSkillModel);

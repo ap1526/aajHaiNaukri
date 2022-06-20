@@ -19,8 +19,9 @@ router.get("/mobileNo", async (req, res) => {
             for (let i = 0; i < r.length; i++) {
                 mobile.push(r[i]);
             }
+            res.send(mobile);
         })
-        res.send(mobile);
+
     })
 })
 

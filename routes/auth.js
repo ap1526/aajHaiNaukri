@@ -74,29 +74,28 @@ router.post('/signUp', [
 // Authenticate A User
 
 router.post('/login', [
-    body('email', "Enter Valid Email").isEmail(),
-    body('password', "Enter Strong Password").isStrongPassword()
+    body('mobileNo', "Entered Number Should Not be Greater then 10!").isLength({ max: 10 }),
+    body('mobileNo', "Entered Number Should Not be less than 10!").isLength({ min: 10 })
 ], async (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.json({ errors: errors.array() });
     }
 
-    const { email, password } = req.body;
-    
+    const { mobileNo, password } = req.body;
+
     try {
-        
-        let adminUser = await Admin.findOne({ email });
-      
+
+        let adminUser = await Admin.findOne({ mobileNo });
+
         if (!adminUser) {
-            return res.status(400).json({ error: "Please Login With Correct Credentials" });
+            return res.json({ error: "Mobile no does not exist." });
         }
-        
         const comparePassword = await bcrypt.compare(password, adminUser.password);
 
         if (!comparePassword) {
-            return res.status(400).json({ error: "Please Login With Correct Credentials" });
+            return res.json({ error: "Wrong password. Try again." });
         }
 
         const data = {
@@ -105,27 +104,26 @@ router.post('/login', [
             }
         }
         const authToken = jwt.sign(data, JWT_SECRET);
-        
+
         // TEMPORARY GIVING ADMINUSER DETAILS
-        res.json({ adminUser, authToken });
+        return res.json({ adminUser, authToken });
 
     } catch (error) {
-        console.error(error.message);
-        res.status(500).send("Internal Server Error");
+        return res.status(500).json("Internal Server Error");
     }
 });
 
 
 // Get User Details With Login required
 router.post('/getUser', fetchUser, async (req, res) => {
-    
+
     try {
-        userId=req.admin.id;
+        userId = req.admin.id;
         const user = await Admin.findById(userId).select("-password");
-        res.send(user);
+        return res.send(user);
     } catch (error) {
         console.error(error.message);
-        res.status(500).send("Internal Server Error");
+        return res.status(500).send("Internal Server Error");
     }
 })
 

@@ -44,7 +44,7 @@ const StateSchema = new mongoose.Schema({
         }
     }]
 },
-    { collection : 'states' }
+    { collection: 'states' }, { timestamps: true }
 )
 
 const states = mongoose.model('states', StateSchema);
