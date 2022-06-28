@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
                             profileImage: req.body.uploadedProfile
                         }
                     }).then((s) => {
-                        res.json(s);
+                        res.json("done");
                     })
                 } else {
                     res.json("done");

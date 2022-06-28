@@ -7,7 +7,7 @@ const { body, validationResult } = require('express-validator');
 const { company } = require('../db/models/company.model');
 
 
-router.post('/', [
+router.post('/signup', [
     body('email', 'Enter Valid Email').isEmail(),
     body('mobileNo', 'Moblie Number Should Not Be Less Than 10 Digit!').isLength({ min: 13 }),
     body('mobileNo', 'Moblie Number Should Not Be Greater Than 10 Digit!').isLength({ max: 13 })
@@ -46,6 +46,11 @@ router.post('/', [
         })
     }
 
+})
+
+router.get('/companyDetails/:mobileNo', async (req, res) => {
+    let data = await company.find({ mobileNo: req.params.mobileNo });
+    res.json(data);
 })
 
 

@@ -61,10 +61,9 @@ const SubmitResumeSchema = new mongoose.Schema({
         }
     }],
     skill: {
-        skillId: [{
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: 'Skill'
+        skills: [{
+            type: String,
+            required: true
         }],
         subSkillId: {
             type: mongoose.Schema.Types.ObjectId,
