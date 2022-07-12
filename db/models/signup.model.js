@@ -53,7 +53,8 @@ const SignupSchema = new mongoose.Schema({
         required: [true, 'Type Of Job Is Required']
     },
     skill: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'MainSkill',
         required: [true, 'Skill Is Required']
     },
     professionalExp: {
@@ -91,7 +92,6 @@ const SignupSchema = new mongoose.Schema({
     expectedSalary: {
         type: String,
         required: [true, 'Expected Salary Field Is Required']
-
     }
 }, { timestamps: true });
 

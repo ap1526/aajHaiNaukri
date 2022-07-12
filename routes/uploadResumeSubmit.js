@@ -37,61 +37,61 @@ router.post("/", (req, res) => {
 })
 
 
-router.get('/getResumeData/:mobileNo', (req, res) => {
+router.get('/getResumeData/:mobileNo', async (req, res) => {
 
-    uploadResumes.findOne({
+    await uploadResumes.findOne({
         mobileNo: req.params.mobileNo
     }).then((doc) => {
         res.json(doc);
     })
 })
 
-router.patch('/updateResume', (req, res) => {
+router.patch('/updateResume', async (req, res) => {
 
-    uploadResumes.updateOne({
+    await uploadResumes.updateOne({
         mobileNo: req.body.mobileNo
     }, {
         $set: req.body
     }).then((doc) => {
-        res.json(doc);
+        res.json("done");
     }).catch((e) => {
         res.json(e);
     })
 })
 
-router.patch('/updateEducation', (req, res) => {
+router.patch('/updateEducation', async (req, res) => {
 
-    uploadResumes.updateOne({
+    await uploadResumes.updateOne({
         mobileNo: req.body.mobileNo
     }, {
         $set: {
             education: req.body.education
         }
     }).then((doc) => {
-        res.json(doc);
+        res.json("done");
     }).catch((e) => {
         res.json(e);
     })
 })
 
-router.patch('/updateSkill', (req, res) => {
-
-    uploadResumes.updateOne({
+router.patch('/updateSkill', async (req, res) => {
+    await uploadResumes.updateOne({
         mobileNo: req.body.mobileNo
     }, {
         $set: {
             skill: req.body.skill
         }
     }).then((doc) => {
-        res.json(doc);
+        res.json("done");
     }).catch((e) => {
+        console.log(e)
         res.json(e);
     })
 });
 
-router.patch('/updateSociallink', (req, res) => {
+router.patch('/updateSociallink', async (req, res) => {
 
-    uploadResumes.updateOne({
+    await uploadResumes.updateOne({
         mobileNo: req.body.mobileNo
     }, {
         $set: {

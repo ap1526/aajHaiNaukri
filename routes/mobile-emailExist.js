@@ -9,13 +9,13 @@ const { Admin } = require('../db/models/admin.model');
 
 router.get("/mobileNo", async (req, res) => {
 
-    var mobile = await signUp.distinct('mobileNo')
+    var mobile = await signUp.distinct('mobileNo');
 
-    company.distinct('mobileNo').then((r) => {
+    await company.distinct('mobileNo').then((r) => {
         for (let i = 0; i < r.length; i++) {
             mobile.push(r[i]);
         }
-        Admin.distinct('mobileNo').then((r) => {
+         Admin.distinct('mobileNo').then((r) => {
             for (let i = 0; i < r.length; i++) {
                 mobile.push(r[i]);
             }

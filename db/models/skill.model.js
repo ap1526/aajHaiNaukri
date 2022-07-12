@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { stringify } = require('querystring');
 
 const MainSkillModel = mongoose.Schema({
     name: {
@@ -36,8 +37,24 @@ const SkillModel = mongoose.Schema({
     }
 }, { timestamps: true })
 
+const SkillDemo = mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    subSkills: [{
+        type: String,
+        required: true,
+        skills: [{
+            type: String,
+            required: true
+        }]
+    }]
+});
+
 const MainSkill = mongoose.model('MainSkill', MainSkillModel);
 const SubSkill = mongoose.model('SubSkill', SubSkillModel);
 const Skill = mongoose.model('Skill', SkillModel);
+const Skilldemo = mongoose.model('SkillDemo', SkillDemo);
 
-module.exports = { MainSkill, SubSkill, Skill }
+module.exports = { MainSkill, SubSkill, Skill, Skilldemo }

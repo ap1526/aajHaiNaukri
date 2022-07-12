@@ -8,12 +8,12 @@ const { signUp } = require('../db/models/signup.model');
 
 
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
 
     //login as Candidate
     if (req.body.as == 'Candidate') {
 
-        signUp.findOne({
+        await signUp.findOne({
             mobileNo: req.body.mobileNo
         }).then((obj) => {
             res.status(200).json(obj);
@@ -26,7 +26,7 @@ router.post("/", (req, res) => {
 
     else if (req.body.as == 'Company') {
 
-        company.findOne({
+        await company.findOne({
             mobileNo: req.body.mobileNo
         }).then((obj) => {
             res.status(200).json(obj);

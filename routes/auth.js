@@ -49,7 +49,7 @@ router.post('/signUp', [
                     password: securedPass
                 });
 
-                admin.save().then((response) => {
+                await admin.save().then((response) => {
 
                     const data = {
                         admin: {

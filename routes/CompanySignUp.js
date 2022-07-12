@@ -20,7 +20,7 @@ router.post('/signup', [
 
     } else {
 
-        company.findOne({
+        await company.findOne({
             $or: [
                 { mobileNo: req.body.mobileNo },
                 { email: req.body.email }
@@ -37,7 +37,7 @@ router.post('/signup', [
 
                 let newCompany = await new company(req.body)
 
-                newCompany.save().then((obj) => {
+                await newCompany.save().then((obj) => {
                     res.status(200).json("Done");
                 }).catch((error) => {
                     res.send(error.message);
