@@ -1,0 +1,440 @@
+<app-header></app-header>
+<div class="create-account-area pt-100 pb-100">
+    <div class="container">
+        <div class="create-information">
+            <form [formGroup]="regForm" (ngSubmit)="onSave()">
+                <div class="jobseeker-item canreg">
+                    <div class="jobseeker-icon">
+                        <i class="flaticon-job-search"></i>
+                    </div>
+                    <div class="jobseeker-inner">
+                        <h3>Signup as a Candidate</h3>
+                    </div>
+                    <a routerLink="/create-account">Signup
+                        <i class="icofont-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Name</mat-label>
+                            <input matInput formControlName="name" placeholder="Name" (input)="changeTextToUppercase('name')">
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label class="required">Name</label>
+                            <input type="text" name="name" formControlName="name" class="form-control"
+                                (input)="changeTextToUppercase('name')">
+                            <p class="warning"
+                                *ngIf="regForm.controls['name'].hasError('required') && regForm.controls['name'].touched">
+                                Name is required.
+                            </p>
+                            <p class="warning" *ngIf="regForm.controls['name'].hasError('pattern')">
+                                Invalid Name
+                            </p>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input matInput type="email" formControlName="email" placeholder="Email" (input)="changeTextToUppercase('email')">
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label class="required">Email</label>
+                            <input type="email" name="email" formControlName="email" class="form-control"
+                                (input)="changeTextToUppercase('email')">
+                                <p class="warning" *ngIf="regForm.controls['email'].hasError('required') && regForm.controls['email'].touched">
+                                    Email is required.
+                                </p>
+                            <p class="warning" *ngIf="regForm.controls['email'].hasError('email')">
+                                Invalid Email
+                            </p>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Mobile No.</mat-label>
+                            <span matPrefix class="prefix">+91 &nbsp;</span>
+                            <input matInput formControlName="mobileNo" placeholder="Mobile No." maxlength="10"
+                                 (change)="checkMobileNo()">
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label class="required">Mobile No.</label>
+                            <div class="mobile-prefix">
+                                <span class="prefix">+91</span>
+                                <input type="text" name="mobileNo" formControlName="mobileNo" class="form-control"
+                                    (change)="checkMobileNo()">
+                            </div>
+                            <p class="warning"
+                                *ngIf="regForm.controls['mobileNo'].hasError('required') && regForm.controls['mobileNo'].touched">
+                                Mobile no. is required.
+                            </p>
+                            <p class="warning" *ngIf="regForm.controls['mobileNo'].hasError('pattern')">
+                                Invalid Phone No
+                            </p>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address</mat-label>
+                            <input matInput formControlName="address" placeholder="Address" (input)="changeTextToUppercase('address')">
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label class="required">Address</label>
+                            <input type="text" name="address" formControlName="address" class="form-control"
+                                (input)="changeTextToUppercase('address')">
+                            <p class="warning"
+                                *ngIf="regForm.controls['address'].hasError('required') && regForm.controls['address'].touched">
+                                This field is required.
+                            </p>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>State</mat-label>
+                            <mat-select placeholder="State" formControlName="state">
+                                <mat-option *ngFor="let s of states" [value]="s.id" (click)="onStateCity(s.id,s.name)">{{s.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label class="required">State</label>
+                            <div class="dropdown show" appDropdown #state="appDropdown">
+                                <input formControlName="state" class="form-control dropdown-toggle" id="dropdownMenuLink"  placeholder="Select State"
+                                    (input)="changeTextToUppercase('state')" (keyup)="FilterState()">
+                                <div class="dropdown-menu dropdown-scroll" [ngClass]="{'show':state.isOpen}">
+                                    <a class="dropdown-item" (click)="onStateCity(s.id,s.name)" *ngFor="let s of states">{{s.name}}</a>
+                                </div>
+                            </div>
+                            <p class="warning"
+                                *ngIf="regForm.controls['state'].hasError('required') && regForm.controls['state'].touched">
+                                State is required.
+                            </p>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>City</mat-label>
+                            <mat-select placeholder="City" formControlName="city">
+                                <mat-option *ngFor="let c of cities" [value]="c.id">{{c.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label class="required">City</label>
+                            <div class="dropdown show" appDropdown #city="appDropdown">
+                                <input formControlName="city" class="form-control dropdown-toggle" id="dropdownMenuLink" placeholder="Select City"
+                                    (input)="changeTextToUppercase('city')" (keyup)="FilterCity()">
+                                <div class="dropdown-menu  dropdown-scroll" [ngClass]="{'show':city.isOpen}">
+                                    <a class="dropdown-item" (click)="onCity(c.id,c.name)" *ngFor="let c of cities">{{c.name}}</a>
+                                </div>
+                                <p class="warning" *ngIf="regForm.controls['city'].hasError('required') && regForm.controls['city'].touched">
+                                    City is required.
+                                </p>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Pincode</mat-label>
+                            <input matInput  formControlName="pincode" maxlength="6" placeholder="Pincode">
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label class="required">Pincode</label>
+                            <input type="text" name="pincode" formControlName="pincode" maxlength="6" class="form-control"
+                                >
+                            <p class="warning"
+                                *ngIf="regForm.controls['pincode'].hasError('required') && regForm.controls['pincode'].touched">
+                                Pincode is required.
+                            </p>
+                            <p class="warning" *ngIf="regForm.controls['pincode'].hasError('pattern')">
+                                Invalid Pincode
+                            </p>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Skill</mat-label>
+                            <mat-select placeholder="Skill" formControlName="skill">
+                                <mat-option *ngFor="let c of mainSkill" [value]="c._id">{{c.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                                                <label class="required">Skill</label>
+                                                <div class="dropdown show" appDropdown #mainskill="appDropdown">
+                                                    <input formControlName="skill" class="form-control dropdown-toggle" id="dropdownMenuLink"
+                                                        placeholder="Select skill" (keyup)="FilterSkill()">
+                                                    <div class="dropdown-menu  dropdown-scroll" [ngClass]="{'show':mainskill.isOpen}">
+                                                        <a class="dropdown-item" (click)="onMainSkill(c._id,c.name)" *ngFor="let c of mainSkill">{{c.name}}</a>
+                                                    </div>
+                                                </div>
+                                                <p class="warning" *ngIf="regForm.controls['skill'].hasError('required') && regForm.controls['skill'].touched">
+                                                    Skill is required.
+                                                </p>
+                                            </div> -->
+                    </div>
+                    <div class="col-lg-3">
+                        <mat-label>Profile</mat-label>
+                        <div class="wrapper">
+                            <button type="button" (click)="fileInput.click()" class="file-upload">
+                                <input formControlName="profileImage" #fileInput type="file" (change)="onProfileChange($event)"
+                                    ng2FileSelect [uploader]="profileUploader" hidden>
+                                <mat-icon>backup</mat-icon>
+                                <p>Select Profile</p>
+                            </button>
+                        </div>
+                        
+                        <!-- <div class="form-group">
+                                                <label style="margin-bottom: 21px;">
+                                                    Profile <small>(Image size is less than 1 mb)</small>
+                                                </label>
+                                                <label for="file-upload" class="custom-file-upload">
+                                                    Select Image
+                                                </label><br>
+                        
+                                                <input type="file" name="profileImage" id="file-upload" formControlName="profileImage"
+                                                    class="form-control-file" ng2FileSelect [uploader]="profileUploader"
+                                                    (change)="onProfileChange($event)">
+                                                <p class="{{profileError?'warning':'p'}}">{{profile}}</p>
+                                            </div> -->
+                    </div>
+                    <div class="col-lg-3">
+                        <img [src]="image" [alt]="regForm.value.name" *ngIf="image"  height="160px" width=140px>
+                    </div>
+                    <div class="col-lg-3">
+                        <mat-label>Resume</mat-label>
+                        <div class="wrapper">
+                            <button type="button" (click)="resumeInput.click()" class="file-upload">
+                                <input formControlName="resumes" #resumeInput type="file" (change)="onResumeChange($event)" ng2FileSelect
+                                    [uploader]="resumeUploader" hidden>
+                                <mat-icon>backup</mat-icon>
+                                <p>Select Resume</p>
+                            </button>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label style="margin-bottom: 21px;">
+                                Resume <small>(file size is less than 1 mb)</small>
+                            </label>
+                            <br>
+                            <label for="resume-upload" class="custom-file-upload">
+                                Select PDF
+                            </label><br>
+                            <input type="file" name="resumes" id="resume-upload" accept="application/pdf"
+                                formControlName="resumes" class="form-control-file" ng2FileSelect
+                                [uploader]="resumeUploader" (change)="onResumeChange($event)">
+                            <p class="{{resumeError?'warning':'p'}}">{{resume}}</p>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-3">
+                        <section class="progress-area" *ngIf="resume">
+                            <mat-icon>description</mat-icon>
+                            <li class="content">
+                                <div class="details">
+                                    <span class="name">{{resume}}</span>
+                                </div>
+                            </li>
+                        </section>
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline" class="mt-25">
+                            <mat-label>Type of Job</mat-label>
+                            <mat-select placeholder="Type of Job"  formControlName="typeOfJob">
+                                <mat-option *ngFor="let j of typeofjob" [value]="j">
+                                    {{j}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <div class="gender-area">
+                                <span class="required">Type of Job</span>
+                                <input type="radio" name="typeOfJob" formControlName="typeOfJob" id="full" value="FULL TIME"
+                                    checked>&nbsp;
+                                <label for="FULL TIME">FULL TIME</label>
+                                <input type="radio" name="typeOfJob" formControlName="typeOfJob" id="part"
+                                    value="PART TIME">&nbsp;
+                                <label for="part time">PART TIME</label>
+                                <input type="radio" name="typeOfJob" formControlName="typeOfJob" id="freelance"
+                                    value="FREELANCE">&nbsp;
+                                <label for="freelance">FREELANCE</label>
+                                <input type="radio" name="typeOfJob" formControlName="typeOfJob" id="internship" value="INTERNSHIP">&nbsp;
+                                <label for="internship">INTERNSHIP</label>
+                                <input type="radio" name="typeOfJob" formControlName="typeOfJob" id="temporary" value="TEMPORARY">&nbsp;
+                                <label for="temporary">TEMPORARY</label>
+                                <p class="warning" *ngIf="regForm.controls['typeOfJob'].hasError('required') && regForm.controls['typeOfJob'].touched">
+                                    Type of Job is required.
+                                </p>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="mt-25">
+                            <mat-label>Professional Experience</mat-label><br>
+                            <mat-radio-group formControlName="professionalExp">
+                                <mat-radio-button class="example-radio-button" *ngFor="let e of exp" [value]="e" (change)="onChange($event)">
+                                    {{e}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                        
+                        <!-- <div class="form-group">
+                            <div class="gender-area">
+                                <span class="required">Professional Experience</span>
+                                <input type="radio" name="professionalExp" (change)="onChange($event)"
+                                    formControlName="professionalExp" value="FRESHER" checked>&nbsp;
+                                <label for="fresher">FRESHER</label>
+                                <input type="radio" name="professionalExp" (change)="onChange($event)"
+                                    formControlName="professionalExp" value="EXPERIENCE">&nbsp;
+                                <label for="experience">EXPERIENCE</label>
+                                <p class="warning" *ngIf="regForm.controls['professionalExp'].hasError('required') && regForm.controls['professionalExp'].touched">
+                                    Professional Experience is required.
+                                </p>
+                            </div>
+                        </div> -->
+                    </div>
+                    <!-- Experience Company data -->
+                    <div class="row create-information" *ngIf="isExperience">
+                        <label class="label">Add Your Last Company Details</label>
+                        <div class="col-lg-6">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Company Name</mat-label>
+                                <input matInput formControlName="companyName" placeholder="Company Name" (input)="changeTextToUppercase('companyName')">
+                            </mat-form-field>
+                            <!-- <div class="form-group">
+                                <label class="required">Company Name *</label>
+                                <input type="text" name="companyName" formControlName="companyName" class="form-control"
+                                    (input)="changeTextToUppercase('companyName')">
+                                <p class="warning"
+                                    *ngIf="regForm.controls['companyName'].hasError('required') && regForm.controls['companyName'].touched">
+                                    Company Name is required.
+                                </p>
+                            </div> -->
+                        </div>
+                        <div class="col-lg-3">
+                            <mat-form-field appearance="outline">
+                                <mat-label>State</mat-label>
+                                <mat-select placeholder="State" formControlName="companyState">
+                                    <mat-option *ngFor="let s of states" [value]="s.id" (click)="onCompanyStateCity(s.id,s.name)">{{s.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- <div class="form-group">
+                                <label class="required">State</label>
+                                <div class="dropdown show" appDropdown #companyState="appDropdown">
+                                    <input formControlName="companyState" class="form-control dropdown-toggle" id="dropdownMenuLink" placeholder="Select State"
+                                        (input)="changeTextToUppercase('companyState')" (keyup)="FilterCompanyState()">
+                                    <div class="dropdown-menu" [ngClass]="{'show':companyState.isOpen}">
+                                        <a class="dropdown-item" (click)="onCompanyStateCity(s.id,s.name)" *ngFor="let s of states">{{s.name}}</a>
+                                    </div>
+                                </div>
+                                <p class="warning"
+                                    *ngIf="regForm.controls['companyState'].hasError('required') && regForm.controls['companyState'].touched">
+                                    State is required.
+                                </p>
+                            </div> -->
+                        </div>
+                        <div class="col-lg-3">
+                            <mat-form-field appearance="outline">
+                                <mat-label>City</mat-label>
+                                <mat-select placeholder="City" formControlName="companyCity">
+                                    <mat-option *ngFor="let c of cCities" [value]="c.id">{{c.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- <div class="form-group">
+                                <label class="required">City</label>
+                                <div class="dropdown show" appDropdown #companyCity="appDropdown">
+                                    <input formControlName="companyCity" class="form-control dropdown-toggle" id="dropdownMenuLink" placeholder="Select City"
+                                        (input)="changeTextToUppercase('companyCity')" (keyup)="FilterCompanyCity()">
+                                    <div class="dropdown-menu" [ngClass]="{'show':companyCity.isOpen}">
+                                        <a class="dropdown-item" (click)="onCompanyCity(c.id,c.name)" *ngFor="let c of cities">{{c.name}}</a>
+                                    </div>
+                                </div>
+                                <p class="warning"
+                                    *ngIf="regForm.controls['companyCity'].hasError('required') && regForm.controls['companyCity'].touched">
+                                    City is required.
+                                </p>
+                            </div> -->
+                        </div>
+                        <div class="col-lg-6">
+                            <mat-form-field appearance="fill" class="example-form-field">
+                                <mat-label>Date of Join - End Date</mat-label>
+                                    <mat-date-range-input [rangePicker]="picker">
+                                        <input matStartDate formControlName="joinDate" placeholder="Date of Join">
+                                        <input matEndDate formControlName="endDate" placeholder="End date">
+                                    </mat-date-range-input>
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-date-range-picker #picker></mat-date-range-picker>
+                            </mat-form-field>
+                            <!-- <div class="form-group">
+                                <label class="required">Date Of Join</label>
+                                <input type="date" name="joinDate" formControlName="joinDate" class="form-control">
+                                <p class="warning"
+                                    *ngIf="regForm.controls['joinDate'].hasError('required') && regForm.controls['joinDate'].touched">
+                                    Date Of Join is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6"> 
+                            <div class="form-group">
+                                <label class="required">End Date</label>
+                                <input type="date" name="endDate" formControlName="endDate" class="form-control">
+                                <p class="warning"
+                                    *ngIf="regForm.controls['endDate'].hasError('required') && regForm.controls['endDate'].touched">
+                                    End Date is required.
+                                </p>
+                            </div>-->
+                        </div>
+                        <div class="col-lg-6">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Past Salary</mat-label>
+                                <input matInput formControlName="pastSalary" placeholder="Past Salary">
+                            </mat-form-field>
+                            <!-- <div class="form-group">
+                                <label class="required">Past Salary</label>
+                                <input type="text" name="pastSalary" formControlName="pastSalary" class="form-control">
+                                <p class="warning" *ngIf="regForm.controls['pastSalary'].hasError('pattern')">
+                                    Invalid Salary
+                                </p>
+                                <p class="warning"
+                                    *ngIf="regForm.controls['pastSalary'].hasError('required') && regForm.controls['pastSalary'].touched">
+                                    Past Salary is required.
+                                </p>
+                            </div> -->
+                        </div>
+                        <div class="col-lg-6">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Total Experience Time</mat-label>
+                                <input matInput formControlName="expTime" placeholder="Total Experience Time" (input)="changeTextToUppercase('expTime')">
+                            </mat-form-field>
+                            <!-- <div class="form-group">
+                                <label class="required">Total Experience Time</label>
+                                <input type="text" name="expTime" formControlName="expTime" class="form-control"
+                                    (input)="changeTextToUppercase('expTime')">
+                                <p class="warning"
+                                    *ngIf="regForm.controls['expTime'].hasError('required') && regForm.controls['expTime'].touched">
+                                    Total Experience is required.
+                                </p>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Expected Salary</mat-label>
+                            <input matInput formControlName="expectedSalary" placeholder="Expected Salary">
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label class="required">Expected Salary</label>
+                            <input type="text" name="expectedSalary" formControlName="expectedSalary" class="form-control">
+                            <p class="warning"
+                                *ngIf="regForm.controls['expectedSalary'].hasError('required') && regForm.controls['expectedSalary'].touched">
+                                Expected Salary is required.
+                            </p>
+                            <p class="warning" *ngIf="regForm.controls['expectedSalary'].hasError('pattern')">
+                                Invalid Salary
+                            </p>
+                        </div> -->
+                    </div>
+                </div>
+                
+                <div class="text-left">
+                    <button type="submit" class="btn create-ac-btn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

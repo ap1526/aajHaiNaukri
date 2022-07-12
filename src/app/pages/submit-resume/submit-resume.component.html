@@ -1,0 +1,876 @@
+<app-candidate-header></app-candidate-header>
+<app-banner1></app-banner1>
+<div class="create-account-area pt-100 pb-100" *ngIf="!isResumeUploaded" >
+    <div class="container">
+        <form *ngIf="resumeForm" [formGroup]="resumeForm" (ngSubmit)="onSave()">
+            <div class="create-information">
+                <mat-label><h1>Basic Information</h1></mat-label>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Name</mat-label>
+                            <input matInput formControlName="name" placeholder="Name" (input)="changeTextToUppercase('name')">
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label class="required">Name</label>
+                            <input type="text" name="name" formControlName="name" class="form-control"
+                                (input)="changeTextToUppercase('name')">
+                            <p class="warning" *ngIf="resumeForm.controls['name'].hasError('required') && resumeForm.controls['name'].touched">
+                                Name is required.
+                            </p>
+                            <p class="warning" *ngIf="resumeForm.controls['name'].hasError('pattern')">
+                                Invalid Name
+                            </p>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input matInput type="email" formControlName="email" placeholder="Email"
+                                 (input)="changeTextToUppercase('email')" readonly>
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label class="required">Email</label>
+                            <input type="email" name="email" formControlName="email" class="form-control"
+                                (input)="changeTextToUppercase('email')" readonly>
+                            <p class="warning" *ngIf="resumeForm.controls['email'].hasError('email')">
+                                Invalid Email
+                            </p>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Mobile No.</mat-label>
+                            <input matInput formControlName="mobileNo" placeholder="Mobile No." readonly>
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label class="required">Mobile No.</label>
+                            <input type="text" name="mobileNo" formControlName="mobileNo" class="form-control"
+                                (input)="changeTextToUppercase('mobileNo')" readonly>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Date of Birth</mat-label>
+                            <input matInput formControlName="dateOfBirth" [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label class="required">Date of Birth</label>
+                            <input type="date" class="form-control e-date-wrapper" name="dateOfBirth" formControlName="dateOfBirth">
+                            <p class="warning"
+                                *ngIf="resumeForm.controls['dateOfBirth'].hasError('required') && resumeForm.controls['dateOfBirth'].touched">
+                                Date of Birth is required.
+                            </p>
+                            
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Address</mat-label>
+                            <input matInput formControlName="address" placeholder="Address" (input)="changeTextToUppercase('address')">
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label class="required">Address</label>
+                            <input type="text" name="address" formControlName="address" class="form-control"
+                                (input)="changeTextToUppercase('address')">
+                            <p class="warning"
+                                *ngIf="resumeForm.controls['address'].hasError('required') && resumeForm.controls['address'].touched">
+                                Address is required.
+                            </p>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>State</mat-label>
+                            <input type="text" placeholder="State" matInput [formControl]="$any(resumeForm).get('state')" 
+                                [matAutocomplete]="state" (keyup)="filterState()">
+                            <mat-autocomplete #state="matAutocomplete" [displayWith]="getState.bind(this)">
+                                <mat-option *ngFor="let s of stateFilter" (click)="onStateCity(s.id)" [value]="s.id">
+                                    {{s.name}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label class="required">State</label>
+                            <div class="dropdown show" appDropdown #state="appDropdown">
+                                <input formControlName="state" class="form-control dropdown-toggle" id="dropdownMenuLink"
+                                    placeholder="Select State" (input)="changeTextToUppercase('state')" (keyup)="FilterState()">
+                                <div class="dropdown-menu  dropdown-scroll" [ngClass]="{'show':state.isOpen}">
+                                    <a class="dropdown-item" (click)="onStateCity(s.id,s.name)"
+                                        *ngFor="let s of states">{{s.name}}</a>
+                                </div>
+                            </div>
+                            <p class="warning"
+                                *ngIf="resumeForm.controls['state'].hasError('required') && resumeForm.controls['state'].touched">
+                                State is required.
+                            </p>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>City</mat-label>
+                            <input type="text" placeholder="City" matInput [formControl]="$any(resumeForm).get('city')"
+                                [matAutocomplete]="city" (keyup)="filterCity()">
+                            <mat-autocomplete #city="matAutocomplete" [displayWith]="getCity.bind(this)">
+                                <mat-option *ngFor="let c of cityFilter" [value]="c.id">
+                                    {{c.name}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label class="required">City</label>
+                            <div class="dropdown show" appDropdown #city="appDropdown">
+                                <input formControlName="city" class="form-control dropdown-toggle" id="dropdownMenuLink"
+                                    placeholder="Select City" (input)="changeTextToUppercase('city')" (keyup)="FilterCity()">
+                                <div class="dropdown-menu  dropdown-scroll" [ngClass]="{'show':city.isOpen}">
+                                    <a class="dropdown-item" (click)="onCity(c.id,c.name)" *ngFor="let c of cities">{{c.name}}</a>
+                                </div>
+                                <p class="warning" *ngIf="resumeForm.controls['city'].hasError('required') && resumeForm.controls['city'].touched">
+                                    City is required.
+                                </p>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="mt-25">
+                            <mat-label>Gender</mat-label><br>
+                            <mat-radio-group formControlName="gender">
+                                <mat-radio-button class="example-radio-button" *ngFor="let e of gender" [value]="e">
+                                    {{e}}
+                                </mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                        <!-- <div class="form-group">
+                            <div class="gender-area">
+                                <span class="required">Gender</span>
+                                <input type="radio" name="gender" formControlName="gender" id="male" value="MALE">
+                                &nbsp;
+                                <label for="male">MALE</label>
+                                <input type="radio" name="gender" formControlName="gender" id="female" value="FEMALE">
+                                &nbsp;
+                                <label for="female">FEMALE</label>
+                                <p class="warning" *ngIf="resumeForm.controls['gender'].hasError('required') && resumeForm.controls['gender'].touched">
+                                    Gender is required.
+                                </p>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Description</mat-label>
+                            <textarea matInput formControlName="description" placeholder="Description" rows="5"
+                                (input)="changeTextToUppercase('description')">
+                            </textarea>
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="your_message" class="form-control" rows="5" formControlName="description"
+                                (input)="changeTextToUppercase('description')"></textarea>
+                        </div> -->
+                    </div>
+                    <div class="col-lg-3 col-sm-8">
+                        <mat-label>Profile</mat-label>
+                        <div class="wrapper">
+                            <button type="button" (click)="fileInput.click()" class="file-upload">
+                                <input formControlName="profileImage" #fileInput type="file" (change)="onProfileChange($event)" ng2FileSelect
+                                    [uploader]="profileUploader" hidden>
+                                <mat-icon>backup</mat-icon>
+                                <p>Select Profile</p>
+                            </button>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label style="margin-bottom: 21px;">
+                                Profile <small>(Image is less than 1 mb)</small>
+                            </label><br>
+                            <label for="file-upload" class="custom-file-upload">
+                                Select Image
+                            </label><br>
+                    
+                            <input type="file" name="profileImage" id="file-upload"  formControlName="profileImage" class="form-control-file"
+                                ng2FileSelect [uploader]="profileUploader" (change)="onProfileChange($event)">
+                            <p class="{{profileError?'warning':'p'}}">{{profile}}</p>
+                        </div> -->
+                    </div>
+                    <div  class="col-lg-3 col-sm-4">
+                        <img *ngIf="image" [src]="image" [alt]="resumeForm.value.name" height="160px" width=160px>
+                        <img *ngIf="!image" src="http://localhost:3000/image/{{profile}}" [alt]="resumeForm.value.name">
+                    </div>
+                </div>
+            </div>
+            <div class="create-education">
+                <div class="create-education-wrap">
+                    <div class="create-education-left">
+                        <mat-label><h1>Education</h1></mat-label>
+                    </div>
+                    <div class="create-education-right">
+                        <button  type="button" id="addEducation" (click)="onAddEducation()">Add Education</button>
+                    </div>
+                </div>                
+                <div formArrayName="education" style="margin-top: 20px;">
+                    <div class="col-lg-12 col-sm-12" *ngIf="educationError">
+                        {{educationError}}
+                    </div>
+                    <div class="row" *ngFor="let e of educationControl.controls; let i=index" [formGroupName]="i">
+                        <div class="col-lg-3 col-sm-12">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Title</mat-label>
+                                <input matInput formControlName="educationTitle" placeholder="Title" (input)="changeTextToUppercase('educationTitle')">
+                            </mat-form-field>
+                            <!-- <div class="form-group">
+                                <label class="required">Title</label>
+                                <input type="text" name="educationTitle" class="form-control" formControlName="educationTitle">
+                                
+                            </div> -->
+                        </div>
+                        <div class="col-lg-2 col-sm-12">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Grade</mat-label>
+                                <input matInput formControlName="grade" placeholder="Grade"
+                                    (input)="changeTextToUppercase('grade')">
+                            </mat-form-field>
+                            <!-- <div class="form-group">
+                                <label class="required">Grade</label>
+                                <input type="text" class="form-control" formControlName="grade">
+                            </div> -->
+                        </div>
+                        <div class="col-lg-4 col-sm-12">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Institute</mat-label>
+                                <input matInput formControlName="institute" placeholder="Institute"
+                                    (input)="changeTextToUppercase('institute')">
+                            </mat-form-field>
+                            <!-- <div class="form-group">
+                                <label class="required">Institute</label>
+                                <input type="text" class="form-control" formControlName="institute">
+                            </div> -->
+                        </div>
+                        <div class="col-lg-2 col-sm-12">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Year</mat-label>
+                                <input matInput formControlName="educationYear" placeholder="Year"
+                                    (input)="changeTextToUppercase('educationYear')">
+                            </mat-form-field>
+                            <!-- <div class="form-group">
+                                <label class="required">Year</label>
+                                <input type="text" class="form-control" formControlName="educationYear">
+                            </div> -->
+                        </div>
+                        <div class="col-lg-1 col-sm-12">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-x-circle-fill delete-education" viewBox="0 0 16 16" (click)="onDeleteEducation(i)">
+                                <path
+                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="create-skills">
+                <div class="create-skills-wrap">
+                    <div class="create-skills-left">
+                        <mat-label>
+                            <h1>Skill</h1>
+                        </mat-label>
+                    </div>
+                </div>
+                <div class="row" formGroupName="skill">
+                    <div class="col-lg-12" *ngIf="skillError">
+                        {{skillError}}
+                    </div>
+                    <div class="col-lg-12 row">
+                        <div class="col-lg-4 col-sm-12">
+                            <mat-form-field appearance="outline">
+                                <input type="text" placeholder="Skill" matInput [formControl]="$any(resumeForm).get('skill.mainSkillId')" [matAutocomplete]="mainSkill"
+                                    (keyup)="FilterMainSkill()">
+                                <mat-autocomplete #mainSkill="matAutocomplete" [displayWith]="getMainSkill.bind(this)">
+                                    <mat-option *ngFor="let s of mainSkillFilter" (click)="onMainSkill(s._id)" [value]="s._id">
+                                        {{s.name}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                            <!-- <div class="form-group">
+                                <div class="dropdown show" appDropdown #mainskill="appDropdown">
+                                    <input formControlName="mainSkillId" class="form-control dropdown-toggle" id="dropdownMenuLink"
+                                        placeholder="Select skill" (keyup)="FilterMainSkill()">
+                                    <div class="dropdown-menu  dropdown-scroll" [ngClass]="{'show':mainskill.isOpen}">
+                                        <a class="dropdown-item" (click)="onMainSkill(c._id,c.name)" *ngFor="let c of mainSkill">{{c.name}}</a>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="col-lg-4 col-sm-12">
+                            <mat-form-field appearance="outline"  *ngIf="subSkillFilter.length>0">
+                                <input type="text" placeholder="Skill" matInput [formControl]="$any(resumeForm).get('skill.subSkillId')"
+                                    [matAutocomplete]="subSkill" (keyup)="FilterSubSkill()">
+                                <mat-autocomplete #subSkill="matAutocomplete" [displayWith]="getSubSkill.bind(this)">
+                                    <mat-option *ngFor="let s of subSkillFilter"  [value]="s._id">
+                                        {{s.name}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                            <!-- <div class="form-group" *ngIf="subSkill">
+                                <div class="dropdown show" appDropdown #subskill="appDropdown">
+                                    <input formControlName="subSkillId" class="form-control dropdown-toggle" id="dropdownMenuLink"
+                                        placeholder="Select skill" (keyup)="FilterSubSkill()">
+                                    <div class="dropdown-menu  dropdown-scroll" [ngClass]="{'show':subskill.isOpen}">
+                                        <a class="dropdown-item" (click)="onSubSkill(c._id,c.name)" *ngFor="let c of subSkill">{{c.name}}</a>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="col-md-12 row">
+                            <div class="col-md-4">
+                                <div class="kwd">
+                                    <div class="keywords-container" formArrayName="skills">
+                                            <mat-form-field class="skills" appearance="outline">
+                                                <div class="keyword-input-container">
+                                                    <input matInput placeholder="Your Skill" class="keyword-input dropdown-toggle" (input)="storeKeyword($event)">
+                                                    
+                                                </div>
+                                                <mat-icon matSuffix (click)="AddKeyword()" style="font-size:30px;">add_box</mat-icon>
+                                            </mat-form-field>
+                                            
+                                        <div class="keywords-list">
+                                            <span class='keyword' *ngFor="let hero of Keywords">
+                                                <span class='keyword-remove' (click)="RemoveKeyword(hero)" style="margin-left: 10px;">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" style="height: 18px; width:18px;color:#228CE5" width="16"
+                                                        height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                                    </svg>
+                                                </span><span class='keyword-text'>
+                                                    {{hero}}
+                                                </span></span>
+                                    
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <!-- <div class="form-group kwd">
+                                    <div class="keywords-container" formArrayName="skills">
+                                        <div class="keyword-input-container">
+                                            <input type="text" (input)="storeKeyword($event)" class="keyword-input form-control dropdown-toggle"
+                                                id="kwds" placeholder="e.g. job title" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                class="bi bi-plus-square keyword-input-button ripple-effect" (click)="AddKeyword()"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                                <path
+                                                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                            </svg>
+                                        </div>
+                                        <div class="keywords-list">
+                                            <span class='keyword' *ngFor="let hero of Keywords">
+                                                <span class='keyword-remove' (click)="RemoveKeyword(hero)" style="margin-left: 10px;">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" style="height: 18px; width:18px;color:#228CE5"
+                                                        width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                                    </svg>
+                                                </span><span class='keyword-text'>
+                                                    {{hero}}
+                                                </span></span>
+                            
+                                        </div>
+                            
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="create-skills" formGroupName="socialLink">
+                <div class="create-skills-wrap">
+                    <div class="create-skills-left">
+                        <mat-label>
+                            <h1>Social Links</h1>
+                        </mat-label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Linkedin</mat-label>
+                            <input matInput formControlName="linkedin" placeholder="Linkedin" (input)="changeTextToUppercase('linkedin')">
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label>Linkedin</label>
+                            <input type="text" class="form-control" formControlName="linkedin">
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Facebook</mat-label>
+                            <input matInput formControlName="facebook" placeholder="Facebook" (input)="changeTextToUppercase('facebook')">
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label>Facebook</label>
+                            <input type="text" class="form-control" formControlName="facebook">
+                        </div> -->
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Instagram</mat-label>
+                            <input matInput formControlName="instagram" placeholder="Instagram" (input)="changeTextToUppercase('instagram')">
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <label>Instagram</label>
+                            <input type="text" class="form-control" formControlName="instagram" >
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="text-left">
+                <button type="submit" class="btn create-ac-btn">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="dashboard-area pt-100" *ngIf="isResumeUploaded">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4">
+                <div class="dashboard-img">
+                    <img *ngIf="displayprofile" src="http://localhost:3000/image/{{displayprofile}}" alt="Dashboard">
+                    <mat-label><h3>{{name}}</h3></mat-label>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="dashboard-nav">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" role="tab"
+                                aria-controls="pills-home" aria-selected="true">
+                                My Profile
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-contact"
+                                role="tab" aria-controls="pills-contact" aria-selected="false">Saved Jobs</a>
+                        </li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <form *ngIf="basicinfoForm" [formGroup]="basicinfoForm">
+                    <div class="create-information">
+                        <mat-label>
+                            <h1>Basic Information</h1>
+                        </mat-label>
+                        <div class="create-basic-right" *ngIf="!isBasicUpdate">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-top:-65px;" width="16" height="16"
+                                fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"
+                                (click)="updateBasic('edit')">
+                                <path
+                                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                <path fill-rule="evenodd"
+                                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                            </svg>
+                        </div>
+                        <div class="create-basic-right mt-25" *ngIf="isBasicUpdate">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="margin-top:-65px;" width="16" height="16"
+                                fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"
+                                (click)="updateBasic('profile')">
+                                <path
+                                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                            </svg>
+                        </div>
+                        <div class="row create-information-btn" *ngIf="isBasicUpdate">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="file-upload" class="custom-file-upload" style="margin-top: 3px;">
+                                        Select Profile
+                                    </label><br>
+
+                                    <input type="file" name="profileImage" id="file-upload"
+                                        formControlName="profileImage" class="form-control-file" ng2FileSelect
+                                        [uploader]="profileUploader" (change)="onProfileChange($event)">
+                                    <p class="{{profileError?'warning':'p'}}">{{profile}}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-left">
+                                    <button type="button" [disabled]="profileError" (click)="onProfileUpload()"
+                                        class="btn create-ac-btn">Upload Profile</button>
+                                </div>
+                            </div>
+                            <div *ngIf="image" class="col-lg-2">
+                                <img [src]="image" [alt]="name" height="160px" width=140px>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Name</mat-label>
+                                    <input matInput formControlName="name" placeholder="Name"
+                                        (input)="changeTextToUppercase('name')" [readonly]="!isBasicUpdate">
+                                </mat-form-field>
+                                
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput type="email" formControlName="email" placeholder="Email"
+                                        (input)="changeTextToUppercase('email')" readonly>
+                                </mat-form-field>
+                               
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Mobile No.</mat-label>
+                                    <input matInput formControlName="mobileNo" placeholder="Mobile No." readonly>
+                                </mat-form-field>
+                                
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Date of Birth</mat-label>
+                                    <input matInput formControlName="dateOfBirth" [matDatepicker]="picker"
+                                        [readonly]="!isBasicUpdate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                                
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Address</mat-label>
+                                    <input matInput formControlName="address" placeholder="Address"
+                                        (input)="changeTextToUppercase('address')" [readonly]="!isBasicUpdate">
+                                </mat-form-field>
+                               
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>State</mat-label>
+                                    <input matInput formControlName="state" readonly *ngIf="!isBasicUpdate">
+                                    <input type="text" placeholder="State" *ngIf="isBasicUpdate" matInput
+                                        [formControl]="$any(basicinfoForm).get('state')" [matAutocomplete]="auto"
+                                        (input)="changeTextToUppercase('state')" (keyup)="filterState()">
+                                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="getState.bind(this)">
+                                        <mat-option *ngFor="let s of stateFilter" [value]="s.id"
+                                            (click)="onStateCity(s.id)">
+                                            {{s.name}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                                
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>City</mat-label>
+                                    <input matInput formControlName="city" placeholder="City" readonly
+                                        *ngIf="!isBasicUpdate">
+                                    <input type="text" placeholder="City" *ngIf="isBasicUpdate" matInput
+                                        [formControl]="$any(basicinfoForm).get('city')" [matAutocomplete]="city"
+                                        (input)="changeTextToUppercase('city')" (keyup)="filterCity()">
+                                    <mat-autocomplete #city="matAutocomplete" [displayWith]="getCity.bind(this)">
+                                        <mat-option *ngFor="let c of cityFilter" [value]="c.id">
+                                            {{c.name}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                               
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-form-field appearance="outline" *ngIf="!isBasicUpdate">
+                                    <mat-label>Gender</mat-label>
+                                    <input matInput formControlName="gender" [readonly]="!isBasicUpdate">
+                                </mat-form-field>
+
+                                <div class="mt-25" *ngIf="isBasicUpdate">
+                                    <mat-label>Gender</mat-label><br>
+                                    <mat-radio-group formControlName="gender">
+                                        <mat-radio-button class="example-radio-button" *ngFor="let e of gender"
+                                            [value]="e">
+                                            {{e}}
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                                
+                            </div>
+                            <div class="col-lg-12" *ngIf="isBasicUpdate">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Description</mat-label>
+                                    <textarea matInput formControlName="description" placeholder="Description" rows="5"
+                                        (input)="changeTextToUppercase('description')">
+                                    </textarea>
+                                </mat-form-field>
+                                
+                            </div>
+                            <div class="text-left" *ngIf="isBasicUpdate">
+                                <button type="button" (click)="onBasicInfo()" class="btn create-ac-btn">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form *ngIf="educationForm" [formGroup]="educationForm">
+                    <div class="create-education create-education-two">
+                        <div class="create-education-wrap">
+                            <div class="create-education-left">
+                                <mat-label>
+                                    <h1>Education</h1>
+                                </mat-label>
+                            </div>
+                            <div class="create-education-right" *ngIf="isEducationUpdate">
+                                <button type="button" (click)="onAddEducation()">Add
+                                    Education</button>
+                                <button type="button" (click)="onUpdateEducation()">Save</button>
+                                <button type="button" (click)="updateEducation('profile')">Cancel</button>
+                            </div>
+                            <div class="create-education-right" *ngIf="!isEducationUpdate">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pencil-square" viewBox="0 0 16 16" (click)="updateEducation('edit')">
+                                    <path
+                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd"
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div formArrayName="education" class="mt-25">
+                                <div class="row display-education"
+                                    *ngFor="let education of uploadedEducationControl; let i=index" [formGroupName]="i">
+                                    <div class="col-lg-3">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Title</mat-label>
+                                            <input matInput formControlName="educationTitle" placeholder="Title"
+                                                (input)="changeTextToUppercase('educationTitle')"
+                                                [readonly]="!isEducationUpdate">
+                                        </mat-form-field>
+                                        
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Grade</mat-label>
+                                            <input matInput formControlName="grade" placeholder="Grade"
+                                                [readonly]="!isEducationUpdate"
+                                                (input)="changeTextToUppercase('grade')">
+                                        </mat-form-field>
+                                        
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Institute</mat-label>
+                                            <input matInput formControlName="institute" placeholder="Institute"
+                                                (input)="changeTextToUppercase('institute')"
+                                                [readonly]="!isEducationUpdate">
+                                        </mat-form-field>
+                                       
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Year</mat-label>
+                                            <input matInput formControlName="educationYear" placeholder="Year"
+                                                (input)="changeTextToUppercase('educationYear')"
+                                                [readonly]="!isEducationUpdate">
+                                        </mat-form-field>
+                                        
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-x-circle-fill delete-education"
+                                            viewBox="0 0 16 16" (click)="onDeleteEducation(i)"
+                                            *ngIf="isEducationUpdate">
+                                            <path
+                                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form *ngIf="skillForm" [formGroup]="skillForm">
+                    <div class="create-skills">
+                        <div class="create-skills-wrap">
+                            <div class="create-skills-left">
+                                <mat-label>
+                                    <h1>Skill</h1>
+                                </mat-label>
+                            </div>
+                            <div class="create-skills-right" *ngIf="isSkillUpdate">
+                                <button type="button" (click)="onUpdateSkill()">Save</button>
+                                <button type="button" (click)="updateSkill('profile')">Cancel</button>
+                            </div>
+                            <div class="create-skills-right" *ngIf="!isSkillUpdate">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pencil-square" viewBox="0 0 16 16" (click)="updateSkill('edit')">
+                                    <path
+                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd"
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="row" formGroupName="skill">
+                            <div class="col-lg-12 row mt-25">
+                                <div class="col-md-4">
+                                    <mat-form-field appearance="outline">
+                                        <input matInput formControlName="mainSkillId" placeholder="Skill" readonly *ngIf="!isSkillUpdate">
+                                        <input type="text" placeholder="Skill" matInput [formControl]="$any(skillForm).get('skill.mainSkillId')"
+                                            [matAutocomplete]="mainSkill" (keyup)="FilterMainSkill()" *ngIf="isSkillUpdate">
+                                        <mat-autocomplete #mainSkill="matAutocomplete" [displayWith]="getMainSkill.bind(this)">
+                                            <mat-option *ngFor="let s of mainSkillFilter" (click)="onMainSkill(s._id)" [value]="s._id">
+                                                {{s.name}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                   
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field appearance="outline">
+                                        <input matInput formControlName="subSkillId" placeholder="Skill" readonly *ngIf="!isSkillUpdate">
+                                        <input type="text" placeholder="Skill" matInput [formControl]="$any(skillForm).get('skill.subSkillId')"
+                                            [matAutocomplete]="subSkill" (keyup)="FilterSubSkill()" *ngIf="isSkillUpdate">
+                                        <mat-autocomplete #subSkill="matAutocomplete" [displayWith]="getSubSkill.bind(this)">
+                                            <mat-option *ngFor="let s of subSkillFilter" [value]="s._id">
+                                                {{s.name}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                               
+                                </div>
+                                <div class="col-md-12 row">
+                                    <div class="col-md-4">
+                                        <div class="kwd">
+                                            <div class="keywords-container" formArrayName="skills">
+                                                <mat-form-field class="skills" *ngIf="isSkillUpdate"
+                                                    appearance="outline">
+                                                    <div class="keyword-input-container">
+                                                        <input matInput placeholder="Your Skill"
+                                                            class="keyword-input dropdown-toggle"
+                                                            (input)="storeKeyword($event)">
+
+                                                    </div>
+                                                    <mat-icon matSuffix (click)="AddKeyword()" style="font-size:30px;">
+                                                        add_box</mat-icon>
+                                                </mat-form-field>
+
+                                                <div class="keywords-list">
+                                                    <span class='keyword' *ngFor="let hero of Keywords">
+                                                        <span class='keyword-remove' *ngIf="isSkillUpdate"
+                                                            (click)="RemoveKeyword(hero)" style="margin-left: 10px;">
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                style="height: 18px; width:18px;color:#228CE5"
+                                                                width="16" height="16" fill="currentColor"
+                                                                class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                                            </svg>
+                                                        </span>
+                                                        <span class="{{isSkillUpdate?'keyword-text':'keyword-text1'}}">
+                                                            {{hero}}
+                                                        </span>
+                                                    </span>
+
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div>
+
+                                        <!-- <div class="form-group kwd">
+                                            <label>
+                                                Skills
+                                            </label>
+                                            <div class="keywords-container" formArrayName="skills">
+                                                <div class="keyword-input-container" *ngIf="isSkillUpdate">
+                                                    <input type="text" (input)="storeKeyword($event)" class="keyword-input form-control dropdown-toggle"
+                                                        id="kwds" placeholder="e.g. job title" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                        class="bi bi-plus-square keyword-input-button ripple-effect" (click)="AddKeyword()"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                                                        <path
+                                                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                                    </svg>
+                                                </div>
+                                                <div class="keywords-list">
+                                                    <span class='keyword' *ngFor="let hero of Keywords">
+                                                        <span class='keyword-remove' *ngIf="isSkillUpdate" (click)="RemoveKeyword(hero)">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" style="height: 18px; width:18px;color:#228CE5"
+                                                                width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                                            </svg>
+                                                        </span>
+                                                        
+                                                        <span class="{{isSkillUpdate?'keyword-text':'keyword-text1'}}">
+                                                            {{hero}}
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                    
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form *ngIf="socialLinkForm" [formGroup]="socialLinkForm">
+                    <div class="create-skills" formGroupName="socialLink">
+                        <div class="create-skills-wrap">
+                            <div class="create-skills-left">
+                                <mat-label>
+                                    <h1>Social Links</h1>
+                                </mat-label>
+                            </div>
+                            <div class="create-skills-right" *ngIf="isSocialUpdate">
+                                <button type="button" (click)="onUpdateSocial()">Save</button>
+                                <button type="button" (click)="updateSocial('profile')">Cancel</button>
+                            </div>
+                            <div class="create-skills-right" *ngIf="!isSocialUpdate">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pencil-square" viewBox="0 0 16 16" (click)="updateSocial('edit')">
+                                    <path
+                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd"
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="row mt-25" *ngIf="isSocial">
+                            <div class="col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Linkedin</mat-label>
+                                    <input matInput formControlName="linkedin" placeholder="Linkedin"
+                                        [readonly]="!isSocialUpdate">
+                                </mat-form-field>
+                               
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Facebook</mat-label>
+                                    <input matInput formControlName="facebook" placeholder="Facebook"
+                                        [readonly]="!isSocialUpdate">
+                                </mat-form-field>
+                                
+                            </div>
+                            <div class="col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Instagram</mat-label>
+                                    <input matInput formControlName="instagram" placeholder="Instagram" [readonly]="!isSocialUpdate">
+                                </mat-form-field>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,117 @@
+<app-header></app-header>
+<app-banner1></app-banner1>
+<div class="login-area pt-50">
+    <div class="container">
+        <div *ngIf="!loginas">
+            <h2>Login Your Account</h2>
+            <div class="login-wrap">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="jobseeker-item">
+                            <div class="jobseeker-icon">
+                                <i class="flaticon-recruitment"></i>
+                            </div>
+                            <div class="jobseeker-inner">
+                                <span>Company</span>
+                                <h3>Login as a Company</h3>
+                            </div>
+                            <p (click)="loginAs('Company')">Get Started
+                                <i class="icofont-arrow-right"></i>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-6">
+                        <div class="jobseeker-item">
+                            <div class="jobseeker-icon">
+                                <i class="flaticon-job-search"></i>
+                            </div>
+                            <div class="jobseeker-inner">
+                                <span>Candidate</span>
+                                <h3>Login as a Candidate</h3>
+                            </div>
+                            <p (click)="loginAs('Candidate')">Get Started
+                                <i class="icofont-arrow-right"></i>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-md-4">
+                <h2>Hellooooo</h2>
+            </div>
+            <div class="col-md-4 login-box" *ngIf="loginas">
+                <h3 class="loginAsTitle">Login As A {{loginas}}</h3>
+                <form [formGroup]="loginForm" >
+                    <div *ngIf="!this.showOTP">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Mobile No.</mat-label>
+                            <span matPrefix class="prefix">+91 &nbsp;</span>
+                            <input matInput formControlName="mobileNo" placeholder="Mobile No." maxlength="10">
+                            <mat-icon matSuffix>phone</mat-icon>
+                        </mat-form-field>
+                        <!-- <div class="form-group">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-telephone-fill login-icon" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                            </svg>
+                            <div class="mobile-prefix">
+                                <span class="prefix">+91</span>
+                                <input type="text" formControlName="mobileNo" name="mobileNo" class="form-control"
+                                    placeholder="Mobile Number" maxlength="10">
+                            </div>
+                            <p class="warning"
+                                *ngIf="loginForm.controls['mobileNo'].hasError('required') && loginForm.controls['mobileNo'].touched">
+                                Mobile No. is required.
+                            </p>
+                            <p class="warning" *ngIf="loginForm.controls['mobileNo'].hasError('pattern')">
+                                Invalid Mobile No.
+                            </p>
+                        </div> -->
+                
+                        <div class="login-sign-in">
+                            <ul>
+                                <li>Don’t Have Account ?</li>
+                                <li>
+                                    <a routerLink="/create-account">Sign Up Here</a>
+                                </li>
+                            </ul>
+                            <div class="text-center">
+                                <button type="button" (click)="onLogin()" class="btn login-btn">Sign In</button>
+                            </div>
+                        </div>
+                        <div id="recaptcha-container" class="justify-center flex"></div>
+                    </div>
+                    <div class="showOTP" *ngIf="this.showOTP">
+                
+                        <div class="otp">
+                            <ng-otp-input (onInputChange)="inputOtp($event)" [config]="config"></ng-otp-input>
+                            <p class="warning" *ngIf="cnt<3&&cnt!=0">
+                                Incorrect OTP {{3-cnt}} attemps remaining
+                            </p>
+                            <div class="optTimer" *ngIf="timerOn">
+                                {{time}}
+                            </div>
+                        </div>
+                
+                        <div class="text-center" >
+                            <button (click)="resendOtp()" *ngIf="isResend" class="is-link">Resend OTP</button>
+                            
+                            <button class="is-link" *ngIf="!isResend" (click)="ClickVerify()">Verify OTP</button>
+                        </div>
+                        
+                    </div>
+                </form>
+                <p class="back" (click)="loginAs('')">
+                    Back
+                </p>
+            </div>
+            <div class="col-md-4">
+            
+            </div>
+        </div>
+    </div>
+
+</div>

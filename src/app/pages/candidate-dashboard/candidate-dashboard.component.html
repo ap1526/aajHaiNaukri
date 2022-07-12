@@ -1,0 +1,436 @@
+ <app-candidate-header></app-candidate-header>
+<app-banner1></app-banner1>
+<br>
+<!-- MAT BADGE -->
+    <!-- <div>
+        <span matBadge="2" matBadgePosition="below after" matBadgeSize="medium" matBadgeColor="primary" matBadgeOverlap="false">
+            Notification
+        </span>
+    </div>-->
+
+
+<!-- MAT BUTTON -->
+    <!-- <button mat-button>basic</button>
+    <button mat-raised-button>raised</button>
+    <button mat-flat-button>flated</button>
+    <button mat-stroked-button>basic</button>
+    <br>
+    <button mat-icon-button>icon</button>
+    <button mat-fab>fab</button>
+    <button mat-mini-fab>mini fab</button> -->
+
+<!-- MAT BUTTON TOGGLE -->
+
+<!-- <mat-button-toggle>toggle</mat-button-toggle>
+    <mat-button-toggle-group #toggle="matButtonToggleGroup" multiple="">
+        <mat-button-toggle value="angular">angular</mat-button-toggle>
+        <mat-button-toggle value="nodejs">nodejs</mat-button-toggle>
+    </mat-button-toggle-group>
+    <p><br>{{toggle.value}}</p> -->
+
+<!-- MAT ICON -->
+
+    <!-- <mat-icon>home(iconname)</mat-icon> -->
+
+<!-- MAT HEADING -->
+    <!-- <div class="mat-display-4">hello</div>
+    <div class="mat-display-3">hello</div>
+    <div class="mat-display-2">hello</div>
+    <div class="mat-display-1">hello</div>
+
+    <div class="mat-headline">hello</div>
+    <div class="mat-title">hello</div>
+    <div class="mat-subheading-2">hello</div>
+    <div class="mat-subheading-1">hello</div>
+
+    <div class="mat-caption">hello</div>
+    <div class="mat-body-2">hello</div>
+    <div class="mat-body-1">hello</div>
+
+    <div class="mat-typography">
+        <h1>hello</h1>
+        <h2>hello</h2>
+        <h3>hello</h3>
+    </div> -->
+
+<!-- MAT SPINNER -->
+    <!-- <mat-progress-spinner value="60">
+    </mat-progress-spinner>
+
+    <mat-spinner></mat-spinner> -->
+
+
+<!--<div class="dashboard-area pt-100">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4">
+                <div class="dashboard-img">
+                    <img *ngIf="displayprofile" src="http://localhost:3000/image/{{displayprofile}}" alt="Dashboard">
+                    <h3>{{name}}</h3>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="dashboard-nav">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" (click)="update('profile')"
+                                role="tab" aria-controls="pills-home" aria-selected="true">My Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" href="#pills-contact"
+                                role="tab" aria-controls="pills-contact" aria-selected="false">Saved Jobs</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <form *ngIf="basicinfoForm" [formGroup]="basicinfoForm">
+                    <div class="create-information">
+                        <h3>Basic Information</h3>
+                        <div class="create-basic-right" *ngIf="!isBasicUpdate">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square"
+                                viewBox="0 0 16 16"  (click)="updateBasic('edit')" >
+                                <path
+                                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                <path fill-rule="evenodd"
+                                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                            </svg>
+                        </div>
+                        <div class="create-basic-right" *ngIf="isBasicUpdate">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg"
+                                viewBox="0 0 16 16" (click)="updateBasic('profile')">
+                                <path
+                                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z" />
+                            </svg>
+                        </div>
+                        <div class="row create-information-btn" *ngIf="isBasicUpdate">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="file-upload" class="custom-file-upload" style="margin-top: 3px;">
+                                        Select Profile
+                                    </label><br>
+                                
+                                    <input type="file" name="profileImage" id="file-upload" formControlName="profileImage" class="form-control-file"
+                                        ng2FileSelect [uploader]="profileUploader" (change)="onProfileChange($event)">
+                                    <p class="{{profileError?'warning':'p'}}">{{profile}}</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="text-left">
+                                    <button type="button" [disabled]="profileError" (click)="onProfileUpload()" class="btn create-ac-btn">Upload Profile</button>
+                                </div>
+                            </div>
+                            <div *ngIf="image" class="col-lg-2">
+                                <img [src]="image" [alt]="name" height="160px" width=140px>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" name="name" formControlName="name" class="form-control" (input)="changeTextToUppercase('name','basicinfoForm')" [readonly]="!isBasicUpdate">
+                                    <p class="warning" *ngIf="basicinfoForm.controls['name'].hasError('required') && basicinfoForm.controls['name'].touched">
+                                        This field is required.
+                                    </p>
+                                    <p class="warning" *ngIf="basicinfoForm.controls['name'].hasError('pattern')">
+                                        Invalid Name
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" name="email" formControlName="email" class="form-control" (input)="changeTextToUppercase('email','basicinfoForm')"  readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Mobile No.</label>
+                                    <input type="text" name="mobileNo" formControlName="mobileNo" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Date of Birth</label>
+                                    <input type="date" class="form-control" name="dateOfBirth" formControlName="dateOfBirth" [readonly]="!isBasicUpdate">
+                                    <p class="warning"
+                                        *ngIf="basicinfoForm.controls['dateOfBirth'].hasError('required') && basicinfoForm.controls['dateOfBirth'].touched">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text" name="address" formControlName="address" class="form-control"
+                                        (input)="changeTextToUppercase('address','basicinfoForm')" [readonly]="!isBasicUpdate">
+                                    <p class="warning"
+                                        *ngIf="basicinfoForm.controls['address'].hasError('required') && basicinfoForm.controls['address'].touched">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>State</label>
+                                    <input type="text" name="state" formControlName="state" class="form-control" *ngIf="!isBasicUpdate" readonly>
+                                    <div class="dropdown show" appDropdown #state="appDropdown" *ngIf="isBasicUpdate">
+                                        <input formControlName="state" class="form-control dropdown-toggle" id="dropdownMenuLink"
+                                            placeholder="Select State" (input)="changeTextToUppercase('state','basicinfoForm')" (keyup)="FilterState()" [readonly]="!isBasicUpdate">
+                                        <div class="dropdown-menu  dropdown-scroll" [ngClass]="{'show':state.isOpen}">
+                                            <a class="dropdown-item" (click)="onStateCity(s.id,s.name)" *ngFor="let s of states">{{s.name}}</a>
+                                        </div>
+                                    </div>
+                                    <p class="warning"
+                                        *ngIf="basicinfoForm.controls['state'].hasError('required') && basicinfoForm.controls['state'].touched">
+                                        This field is required.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <input type="text" name="city" formControlName="city" class="form-control" *ngIf="!isBasicUpdate" readonly>
+                                    <div class="dropdown show" appDropdown #city="appDropdown" *ngIf="isBasicUpdate">
+                                        <input formControlName="city" class="form-control dropdown-toggle" id="dropdownMenuLink"
+                                            placeholder="Select City" (input)="changeTextToUppercase('city','basicinfoForm')" (keyup)="FilterCity()" [readonly]="!isBasicUpdate">
+                                        <div class="dropdown-menu  dropdown-scroll" [ngClass]="{'show':city.isOpen}">
+                                            <a class="dropdown-item" (click)="onCity(c.id,c.name)" *ngFor="let c of cities">{{c.name}}</a>
+                                        </div>
+                                        <p class="warning"
+                                            *ngIf="basicinfoForm.controls['city'].hasError('required') && basicinfoForm.controls['city'].touched">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Gender</label>
+                                    <input type="text" name="gender" formControlName="gender" class="form-control" *ngIf="!isBasicUpdate" readonly>
+                                    <div *ngIf="isBasicUpdate">
+                                        <input type="radio" name="gender" formControlName="gender" id="male" value="MALE">
+                                        &nbsp;
+                                        <label for="male">MALE</label>&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" name="gender" formControlName="gender" id="female" value="FEMALE">
+                                        &nbsp;
+                                        <label for="female">FEMALE</label>
+                                        <p class="warning"
+                                            *ngIf="basicinfoForm.controls['gender'].hasError('required') && basicinfoForm.controls['gender'].touched">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12" *ngIf="isBasicUpdate">
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea id="your_message" class="form-control" rows="3" formControlName="description"
+                                        (input)="changeTextToUppercase('description','basicinfoForm')" [readonly]="!isBasicUpdate"></textarea>
+                                </div>
+                            </div>
+                            <div class="text-left" *ngIf="isBasicUpdate">
+                                <button type="button" (click)="onBasicInfo()" class="btn create-ac-btn">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form *ngIf="educationForm" [formGroup]="educationForm">
+                    <div class="create-education create-education-two">
+                        <div class="create-education-wrap">
+                            <div class="create-education-left">
+                                <h3>Education</h3>
+                            </div>
+                            <div class="create-education-right" *ngIf="isEducationUpdate">
+                                <button type="button" (click)="onAddEducation()" style="margin-right:15px;">Add Education</button>
+                                <button type="button" (click)="onUpdateEducation()">Save</button>
+                            </div>
+                            <div class="create-education-right" *ngIf="!isEducationUpdate">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square"
+                                    viewBox="0 0 16 16" (click)="updateEducation('edit')">
+                                    <path
+                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd"
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div formArrayName="education">
+                                <div class="row" *ngFor="let education of educationControl; let i=index" [formGroupName]="i">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Title</label>
+                                            <input type="text" name="educationTitle" class="form-control" formControlName="educationTitle" [readonly]="!isEducationUpdate">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Grade</label>
+                                            <input type="text" class="form-control" formControlName="grade" [readonly]="!isEducationUpdate">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Institute</label>
+                                            <input type="text" class="form-control" formControlName="institute" [readonly]="!isEducationUpdate">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Year</label>
+                                            <input type="text" class="form-control" formControlName="educationYear" [readonly]="!isEducationUpdate">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill delete-education"
+                                                viewBox="0 0 16 16" (click)="onDeleteEducation(i)" *ngIf="isEducationUpdate">
+                                                <path
+                                                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form *ngIf="skillForm" [formGroup]="skillForm">
+                    <div class="create-skills">
+                        <div class="create-skills-wrap">
+                            <div class="create-skills-left">
+                                <h3>Skill</h3>
+                            </div>
+                            <div class="create-skills-right" *ngIf="isSkillUpdate">
+                                <button type="button" (click)="onUpdateSkill()">Save</button>
+                            </div>
+                            <div class="create-skills-right" *ngIf="!isSkillUpdate">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square"
+                                    viewBox="0 0 16 16" (click)="updateSkill('edit')">
+                                    <path
+                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd"
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="row" formGroupName="skill">
+                            <div class="col-lg-12 row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" name="mainSkillId" formControlName="mainSkillId" class="form-control" *ngIf="!isSkillUpdate" readonly>
+                                        <div class="dropdown show" *ngIf="isSkillUpdate" appDropdown #mainskill="appDropdown">
+                                            <input formControlName="mainSkillId" class="form-control dropdown-toggle" id="dropdownMenuLink"
+                                                placeholder="Select skill" (keyup)="FilterMainSkill()">
+                                            <div class="dropdown-menu  dropdown-scroll" [ngClass]="{'show':mainskill.isOpen}">
+                                                <a class="dropdown-item" (click)="onMainSkill(c._id,c.name)"
+                                                    *ngFor="let c of mainSkill">{{c.name}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" name="subSkillId" formControlName="subSkillId" class="form-control" *ngIf="!isSkillUpdate"
+                                            readonly>
+                                        <div class="dropdown show" *ngIf="isSkillUpdate" appDropdown #subskill="appDropdown">
+                                            <input formControlName="subSkillId" class="form-control dropdown-toggle" id="dropdownMenuLink"
+                                                placeholder="Select skill" (keyup)="FilterSubSkill()">
+                                            <div class="dropdown-menu  dropdown-scroll" [ngClass]="{'show':subskill.isOpen}">
+                                                <a class="dropdown-item" (click)="onSubSkill(c._id,c.name)"
+                                                    *ngFor="let c of subSkill">{{c.name}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 row" formArrayName="skillId">
+                                    <div class="col-md-3" *ngFor="let s of skills; let i=index">
+                                        <div class="form-group">
+                                                <label>
+                                                    <input type="checkbox" (change)="onSkill($event)" [checked]="filterSkill(s._id)" [disabled]="!isSkillUpdate" value="{{s._id}}">
+                                                    &nbsp;{{s.name}}
+                                                </label>
+                                        </div>
+                                        <!-- <div class="form-group" *ngIf="!isSkillUpdate">
+                                            <label *ngFor="let s of skill">
+                                                {{s}}
+                                            </label>
+                                        </div> -->
+<!--                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form *ngIf="socialLinkForm" [formGroup]="socialLinkForm">
+                    <div class="create-skills" formGroupName="socialLink">
+                        <div class="create-skills-wrap">
+                            <div class="create-skills-left">
+                                <h3>Social Links</h3>
+                            </div>
+                            <div class="create-skills-right" *ngIf="isSocialUpdate">
+                                <button type="button" (click)="onUpdateSocial()">Save</button>
+                            </div>
+                            <div class="create-skills-right" *ngIf="!isSocialUpdate">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square"
+                                    viewBox="0 0 16 16" (click)="updateSocial('edit')">
+                                    <path
+                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd"
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="isSocial">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Linkedin</label>
+                                    <input type="text" class="form-control" formControlName="linkedin" [readonly]="!isSocialUpdate">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Facebook</label>
+                                    <input type="text" class="form-control" formControlName="facebook" [readonly]="!isSocialUpdate">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Instagram</label>
+                                    <input type="text" class="form-control" formControlName="instagram" [readonly]="!isSocialUpdate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--    modal popup -->
+
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="dashboard-checkbox">
+                    <input type="checkbox" value="LookingForJob">
+                    <label for="LookingForJob">Looking For Job</label>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn btn-primary" (click)="saveSomeThing()">
+                    Save changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

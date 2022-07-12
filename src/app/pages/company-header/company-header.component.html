@@ -1,0 +1,41 @@
+<div class="navbar-area fixed-top">
+    <div class="mobile-nav">
+        <a routerLink="/" class="logo">
+            <img src="assets/img/logo/02.jpg" alt="Logo">
+        </a>
+    </div>
+
+    <div class="main-nav">
+        <div class="container">
+            <nav class="navbar navbar-expand-md navbar-light">
+                <a class="navbar-brand" routerLink="/">
+                    <img src="assets/img/logo/02.jpg" alt="Logo">
+                </a>
+                <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a routerLink="/company-home" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/hire-candidate" class="nav-link">Hire Candidate</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/candidate-list" class="nav-link dropdown-toggle">Candidates</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/pricing" class="nav-link">Pricing</a>
+                        </li>
+                    </ul>
+                    <div class="common-btn">
+                        <div *ngIf="isLoginAs!=null">
+                            <a class="log-out-btn clsbtn">
+                                <i class="icofont-user-alt-4"></i>
+                                logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>

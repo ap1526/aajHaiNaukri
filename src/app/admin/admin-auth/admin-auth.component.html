@@ -1,0 +1,182 @@
+<div class="login-area pt-50" *ngIf="isSignin">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-xs-2">
+
+            </div>
+            <div class="col-md-4 col-xs-8 login-box">
+                <h3 class="loginAsTitle">Login</h3>
+                <div class="admin-login">
+                    <form [formGroup]="adminLoginForm" (ngSubmit)="onLogin()">
+                        <div class="form-group">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-telephone-fill login-icon" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                            </svg>
+                            <input type="text" formControlName="mobileNo" name="mobileNo" class="form-control"
+                                placeholder="Phone Number" maxlength="10">
+                            <p class="warning"
+                                *ngIf="adminLoginForm.controls['mobileNo'].hasError('required') && adminLoginForm.controls['mobileNo'].touched">
+                                This field is required.
+                            </p>
+                            <p class="warning" *ngIf="adminLoginForm.controls['mobileNo'].hasError('pattern')">
+                                Invalid Mobile No.
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-lock-fill login-icon" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                            </svg>
+                            <input type="{{isShowPwd?'text':'password'}}" formControlName="password" name="password" class="form-control"
+                                placeholder="Password" maxlength="10">
+                            <p class="warning"
+                                *ngIf="adminLoginForm.controls['password'].hasError('required') && adminLoginForm.controls['password'].touched">
+                                This field is required.
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <p class="warning" *ngIf="error">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                </svg>
+                                {{error}}
+                            </p>
+                            <label class="forgotPwd">Forgot Password?</label>
+                        </div>
+
+                        <div class="login-sign-in">
+                            <ul>
+                                <li>Don’t Have Account ?</li>
+                                <li>
+                                    <a (click)="showSign('signUp')">Sign Up Here</a>
+                                </li>
+                            </ul>
+                            <div class="text-center">
+                                <button type="submit" class="btn login-btn">
+                                    Log In</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-2">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="login-area pt-50" *ngIf="!isSignin">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-xs-2">
+
+            </div>
+            <div class="col-md-4 col-xs-8 login-box">
+                <h3 class="loginAsTitle">Sign Up</h3>
+                <div class="admin-create">
+                    <form [formGroup]="adminRegForm" (ngSubmit)="onSave()">
+                        <div class="form-group">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-telephone-fill login-icon" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z" />
+                            </svg>
+                            <input type="text" name="mobileNo" formControlName="mobileNo" class="form-control"
+                                placeholder="Mobile No" (change)="checkMobileNo()" maxlength="10">
+                            <p class="warning"
+                                *ngIf="adminRegForm.controls['mobileNo'].hasError('required') && adminRegForm.controls['mobileNo'].touched">
+                                This field is required.
+                            </p>
+                            <p class="warning" *ngIf="adminRegForm.controls['mobileNo'].hasError('pattern')">
+                                Invalid Mobile No
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-envelope-fill login-icon" viewBox="0 0 16 16">
+                                <path
+                                    d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
+                            </svg>
+                            <input type="email" name="email" formControlName="email" class="form-control"
+                                placeholder="Email">
+                            <p class="warning"
+                                *ngIf="adminRegForm.controls['email'].hasError('required') && adminRegForm.controls['email'].touched">
+                                This field is required.
+                            </p>
+                            <p class="warning" *ngIf="adminRegForm.controls['email'].hasError('email')">
+                                Invalid Email
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-lock-fill login-icon" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                            </svg>
+                            <input type="{{isShowPwd?'text':'password'}}" formControlName="password" name="password" class="form-control"
+                                placeholder="Password" minlength="8" placeholder="Password" (keyup)="passwordStrength()">
+                            <p class="warning"
+                                *ngIf="adminRegForm.controls['password'].hasError('required') && adminRegForm.controls['password'].touched">
+                                This field is required.
+                            </p>
+                            <p class="warning" *ngIf="adminRegForm.controls['password'].hasError('minlength')|| pwdstrength">
+                                Password must be more than 8 characters long.
+                                <label>{{pwdstrength}}</label>
+                            </p>
+                            
+                        </div>
+                        <div class="form-group">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-lock-fill login-icon" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
+                            </svg>
+                            <input type="{{isShowPwd?'text':'password'}}" formControlName="cpassword" name="cpassword" class="form-control"
+                                placeholder="Confirm Password" minlength="8" (keyup)="pwdCheck()">
+                            <p class="warning"
+                                *ngIf="adminRegForm.controls['cpassword'].hasError('required') && adminRegForm.controls['cpassword'].touched">
+                                This field is required.
+                            </p>
+                            <p class="warning" *ngIf="pwdError">
+                                {{pwdError}}
+                            </p>
+                            
+                        </div>
+                        <div class="form-group">
+                            <p class="warning" *ngIf="error">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                                </svg>
+                                {{error}}
+                            </p>
+                            <input type="checkbox" name="showpwd" (click)="pwdHideShow()">
+                            <label class="showHide">Show Password</label>
+                        </div>
+                        <div class="login-sign-in">
+                            <ul>
+                                <li>Already create an account?</li>
+                                <li>
+                                    <a (click)="showSign('signIn')">LogIn</a>
+                                </li>
+                            </ul>
+                            <div class="text-center">
+                                <button type="submit" class="btn login-btn">Sign Up</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4 col-xs-2">
+
+            </div>
+        </div>
+    </div>
+</div>

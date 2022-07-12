@@ -1,0 +1,55 @@
+<div class="navbar-area fixed-top">
+
+    <div class="mobile-nav">
+        <a routerLink="/" class="logo">
+            <img src="assets/img/logo/02.jpg" alt="Logo">
+        </a>
+    </div>
+
+    <div class="main-nav">
+        <div class="container">
+            <nav class="navbar navbar-expand-md navbar-light">
+                <a class="navbar-brand" routerLink="/">
+                    <img src="assets/img/logo/02.jpg" alt="Logo">
+                </a>
+                <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item" routerActiveLink="active">
+                            <a routerLink="/" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/about" class="nav-link">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/faq" class="nav-link">FAQ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Blogs <i class="icofont-simple-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a routerLink="/blog" class="nav-link">Blog</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a routerLink="/blog-details" class="nav-link">Blog Details</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/contact" class="nav-link">Contact</a>
+                        </li>
+                    </ul>
+                    <div class="common-btn" >
+                            <a class="login-btn" routerLink="/login">
+                                <i class="icofont-plus-square"></i>
+                                Login
+                            </a>
+                            <a class="sign-up-btn" routerLink="/create-account">
+                                <i class="icofont-user-alt-4"></i>
+                                Sign Up
+                            </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>

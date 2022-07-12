@@ -1,0 +1,22 @@
+.skills::ng-deep .mat-form-field-flex>.mat-form-field-infix {
+    padding: 0.4em 0px !important;
+}
+
+.skills::ng-deep .mat-form-field-label-wrapper {
+    top: -1.5em;
+}
+
+.skills::ng-deep .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    transform: translateY(-1.1em) scale(.75);
+    width: 133.33333%;
+}
+
+.select-filter{
+    border: 1px solid #e0e0e0;
+        color: black;
+        margin: 15px;
+        border-radius: 5px;
+        width: 89%;
+        height: 35px;
+        padding-left: 20px;
+}

@@ -1,0 +1,58 @@
+<div class="navbar-area fixed-top">
+    <div class="mobile-nav">
+        <a routerLink="/" class="logo">
+            <img src="assets/img/logo/02.jpg" alt="Logo">
+        </a>
+    </div>
+
+    <div class="main-nav">
+        <div class="container">
+            <nav class="navbar navbar-expand-md navbar-light">
+                <a class="navbar-brand" routerLink="/">
+                    <img src="assets/img/logo/02.jpg" alt="Logo">
+                </a>
+                <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item" routerActiveLink="active">
+                            <a  routerLink="/candidate-dashboard" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Jobs <i class="icofont-simple-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a routerLink="/job-list" class="nav-link">Job List</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a routerLink="/favourite-job" class="nav-link">Favourite Jobs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a routerLink="/job-details" class="nav-link">Job Details</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/upload-resume" class="nav-link">Upload Resume</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Company <i class="icofont-simple-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a routerLink="/company-list" class="nav-link">Company List</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a routerLink="/company-details" class="nav-link">Company Details</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="common-btn">
+                            <a class="log-out-btn clsbtn">
+                                <i class="icofont-user-alt-4"></i>
+                                Logout
+                            </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>

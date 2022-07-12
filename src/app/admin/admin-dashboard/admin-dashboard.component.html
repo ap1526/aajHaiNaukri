@@ -1,0 +1,51 @@
+<!-- MAT SIDENAV -->
+<mat-sidenav-container>
+    <mat-sidenav >Start</mat-sidenav>
+    <mat-sidenav-content>Main
+        <button mat-raised-button (click)="logout()">Logout</button>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- MAT MENU` -->
+<mat-menu #appMenu="matMenu">
+    <button mat-menu-item>test1</button>
+    <button mat-menu-item [matMenuTriggerFor]="subMenu">test2</button>
+    <button mat-menu-item>test3</button>
+</mat-menu> 
+<button mat-flat-button [matMenuTriggerFor]="appMenu">test</button>
+
+<mat-menu #subMenu="matMenu">
+    <button mat-menu-item>testA</button>
+    <button mat-menu-item>testB</button>
+    <button mat-menu-item>testC</button>
+</mat-menu>
+
+<br><br>
+<mat-menu #lazyMenu="matMenu">
+    <ng-template matMenuContent let-name="name" let-hobby="hobby">
+        <button mat-menu-item>Setting</button>
+        <button mat-menu-item>Hobby is {{hobby}}</button>
+        <button mat-menu-item>Logout {{name}}</button>
+    </ng-template>
+</mat-menu>
+<button mat-raised-button [matMenuTriggerData]="{name:'viswas1',hobby:'football'}" [matMenuTriggerFor]="lazyMenu">viswas1</button>
+<button mat-raised-button [matMenuTriggerData]="{name:'viswas2',hobby:'teaching'}" [matMenuTriggerFor]="lazyMenu">viswas2</button>
+
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item>
+        <mat-icon>dialpad</mat-icon>
+        <span>Redial</span>
+    </button>
+    <button mat-menu-item disabled>
+        <mat-icon>voicemail</mat-icon>
+        <span>Check voice mail</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+    </button>
+</mat-menu>
+<br><br><br><br><br><br><br>

@@ -1,0 +1,81 @@
+.photo-upload-wrapper {
+  p {
+    display: flex;
+    color:#585656;
+    align-items: center;
+  }
+}
+
+.photo-upload {
+  width: 224px;
+  display: flex;
+  align-items: center;
+
+  &-content {
+    width: 100%;
+  }
+
+  input {
+    position: relative;
+    padding: 30px 0;
+
+    &::-webkit-file-upload-button {
+      display: none;
+
+      + span {
+        position: relative;
+        top: -30px;
+      }
+    }
+
+    &::before {
+      content: "";
+      background-image: url(/assets/images/image-upload.svg);
+      background-repeat: no-repeat;
+      height: 75px;
+      width: 95px;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+  a {
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+
+  img + input {
+    padding: 50px 0 50px 20px;
+
+    &:before {
+      display: none;
+    }
+  }
+
+  span {
+    display: none;
+  }
+
+  img {
+    margin-bottom: 0;
+    object-fit: contain;
+  }
+
+  #selectFile {
+    color: transparent;
+  }
+
+  .photo-size {
+    font-size: 10px !important;
+    font-weight: 400 !important;
+    margin-left: 3px !important;
+  }
+
+  .filepicker {
+    visibility: none;
+    display: none;
+    width: fit-content;
+  }
+}

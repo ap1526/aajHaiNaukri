@@ -1,0 +1,360 @@
+<app-company-header></app-company-header>>
+<div class="post-job-area pt-100">
+    <div class="container">
+        <div class="hire-candidate-heading">
+            <h2>Hire Candidate</h2>
+        </div>
+        <form [formGroup]="hireCandidateForm" (ngSubmit)="onHireCandidate()" *ngIf="hireCandidateForm">
+            <div class="post-job-item">
+                <div class="post-job-heading">
+                    <mat-label>
+                        <h1>Basic Job Details</h1>
+                    </mat-label>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="required">Job Title</label>
+                            <input type="text" class="form-control" formControlName="jobTitle" placeholder="TITLE" 
+                                    (input)="changeTextToUppercase('jobTitle')">
+                            <p class="warning" *ngIf="hireCandidateForm.controls['jobTitle'].hasError('required') && 
+                                hireCandidateForm.controls['jobTitle'].touched">
+                                Job Title is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="required">Job Category</label>
+                            <div class="job-category-area">
+                                <select class="form-select" formControlName="jobCategory" (change)="onJobCategory()" aria-label="Default select example">
+                                    <option value="IT & Technolog">IT & Technology</option>
+                                    <option value="Web Developer">Web Developer</option>
+                                    <option value="UX/UI Design">UX/UI Design</option>
+                                    <option value="SEO">SEO</option>
+                                    <option value="Android Developer">Android Developer</option>
+                                </select>
+                                <p class="warning" *ngIf="hireCandidateForm.controls['jobCategory'].hasError('required') && 
+                                    hireCandidateForm.controls['jobCategory'].touched">
+                                    Job Category is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="required">Job Type</label>
+                            <div class="job-category-area">
+                                <select class="form-select" formControlName="jobType"
+                                    aria-label="Default select example">
+                                    <option value="FULL-TIME">FULL-TIME</option>
+                                    <option value="PART-TIME">PART-TIME</option>
+                                    <option value="FREELANCE">FREELANCE</option>
+                                    <option value="INTERNSHIP">INTERNSHIP</option>
+                                    <option value="TEMPORARY">TEMPORARY</option>
+                                </select>
+                                <p class="warning" *ngIf="hireCandidateForm.controls['jobType'].hasError('required') && 
+                                        hireCandidateForm.controls['jobType'].touched">
+                                    Job Type is required.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="required">Vacancy</label>
+                            <input type="number" class="form-control" formControlName="vacancy" min="1" placeholder="10">
+                            <p class="warning" *ngIf="hireCandidateForm.controls['vacancy'].hasError('required') && 
+                                                            hireCandidateForm.controls['vacancy'].touched">
+                                Vacancy is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="required">Job Location</label>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>State</mat-label>
+                                        <input type="text" placeholder="State" matInput [formControl]="$any(hireCandidateForm).get('state')"
+                                            [matAutocomplete]="state" (keyup)="filterState()">
+                                        <mat-autocomplete #state="matAutocomplete" [displayWith]="getState.bind(this)">
+                                            <mat-option *ngFor="let s of stateFilter" (click)="onStateCity(s.id)" [value]="s.id">
+                                                {{s.name}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                    <!-- <div class="form-group">
+                                        <div class="dropdown show" appDropdown #state="appDropdown">
+                                            <input formControlName="state" class="form-control dropdown-toggle" id="dropdownMenuLink"
+                                                placeholder="Select State" (input)="changeTextToUppercase('state')" (keyup)="FilterState()">
+                                            <div class="dropdown-menu" [ngClass]="{'show':state.isOpen}">
+                                                <a class="dropdown-item" (click)="onStateCity(s.id,s.name)" *ngFor="let s of states">{{s.name}}</a>
+                                            </div>
+                                        </div>
+                                        <p class="warning" *ngIf="hireCandidateForm.controls['state'].hasError('required') && 
+                                                                        hireCandidateForm.controls['state'].touched">
+                                            State is required.
+                                        </p>
+                                    </div> -->
+                                </div>
+                                <div class="col-lg-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>City</mat-label>
+                                        <input type="text" placeholder="City" matInput [formControl]="$any(hireCandidateForm).get('city')" [matAutocomplete]="city"
+                                            (keyup)="filterCity()">
+                                        <mat-autocomplete #city="matAutocomplete" [displayWith]="getCity.bind(this)">
+                                            <mat-option *ngFor="let c of cityFilter" [value]="c.id">
+                                                {{c.name}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </mat-form-field>
+                                    <!-- <div class="form-group">
+                                        <div class="dropdown show" appDropdown #city="appDropdown">
+                                            <input formControlName="city" class="form-control dropdown-toggle" id="dropdownMenuLink"
+                                                placeholder="Select City" (input)="changeTextToUppercase('city')" (keyup)="FilterCity()">
+                                            <div class="dropdown-menu" [ngClass]="{'show':city.isOpen}">
+                                                <a class="dropdown-item" (click)="onCity(c.id,c.name)" *ngFor="let c of cities">{{c.name}}</a>
+                                            </div>
+                                        </div>
+                                        <p class="warning" *ngIf="hireCandidateForm.controls['city'].hasError('required')&&
+                                        hireCandidateForm.controls['city'].touched">
+                                            City is required.
+                                        </p>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            
+            </div>
+            <div class="post-job-item">
+                <div class="post-job-heading">
+                    <mat-label>
+                        <h1>Addintional Job Details</h1>
+                    </mat-label>
+                </div>
+                <div class="row" >  <!-- *ngIf="isJobTitleSelected"  -->
+                    <div class="col-lg-12">
+                        <div class="form-group ">
+                            <label class="required">Qualification</label>
+                            <br>
+                            <div class="radio-toolbar">
+                                <input type="radio" name="qualification" style="margin-left: 30px;" formControlName="qualification" id="10below"
+                                    value="BELOW 10TH PASS">&nbsp;
+                                <label for="10below">BELOW 10 PASS</label>
+                                <input type="radio" name="qualification" formControlName="qualification" id="10above" value="10TH PASS OR ABOVE">&nbsp;
+                                <label for="10above" > 10TH PASS OR ABOVE</label>
+                                <input type="radio" name="qualification" formControlName="qualification" id="12above" value="12TH PASS OR ABOVE">&nbsp;
+                                <label for="12above"> 12TH PASS OR ABOVE</label>
+                                <input type="radio" name="qualification" formControlName="qualification" id="graduate" value="GRADUATE">&nbsp;
+                                <label for="graduate">GRADUATE</label>
+                            </div>
+                            <p class="warning" *ngIf="hireCandidateForm.controls['qualification'].hasError('required') && 
+                                hireCandidateForm.controls['qualification'].touched">
+                                Please select one from above.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="required">Candidate Experience</label>
+                            <br>
+                            <div class="radio-toolbar">
+                                <input type="radio" name="experience" style="margin-left: 30px;" formControlName="experience" id="fresher"
+                                    value="fresher">&nbsp;
+                                <label for="fresher">FRESHER</label>
+                                <input type="radio" name="experience" formControlName="experience" id="1-2year" value="1-2 YEAR">&nbsp;
+                                <label for="1-2year" >1-2 YEAR</label>
+                                <input type="radio" name="experience" formControlName="experience" id="2yearAbove" value="2 YEAR ABOVE">&nbsp;
+                                <label for="2yearAbove">2 YEAR ABOVE</label>
+                            </div>
+                            <p class="warning" *ngIf="hireCandidateForm.controls['experience'].hasError('required') && 
+                                                            hireCandidateForm.controls['experience'].touched">
+                                Please select one from above.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="required">Gender</label>
+                            <br>
+                            <div class="radio-toolbar">
+                                <input type="radio" name="gender" style="margin-left: 30px;" formControlName="gender" id="male" value="MALE">&nbsp;
+                                <label for="male" >MALE</label>
+                                <input type="radio" name="gender" formControlName="gender" id="female" value="FEMALE">&nbsp;
+                                <label for="female">FEMALE</label>
+                                <input type="radio" name="gender" formControlName="gender" id="both" value="BOTH">&nbsp;
+                                <label for="both">BOTH</label>
+                            </div>
+                            <p class="warning" *ngIf="hireCandidateForm.controls['gender'].hasError('required') && 
+                                                            hireCandidateForm.controls['gender'].touched">
+                                Please select one from above.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row" formArrayName="skill">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="required">Skill</label>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                            <div class="row" *ngFor="let skill of skillControl; let i=index">
+                                <div class="keywords-list">
+                                    <p class="warning">hello</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            <label class="required">Salary</label>
+                            <div class="row">
+                                <div class="col-lg-5 salary">
+                                    <div class="form-group">
+                                        <input type="text" formControlName="minSalary" class="form-control" placeholder="10000">
+                                        <p class="warning" *ngIf="hireCandidateForm.controls['minSalary'].hasError('required') && 
+                                                hireCandidateForm.controls['minSalary'].touched">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 salaryTo">
+                                    <div class="form-group" >
+                                        <input type="text" style="padding-left: 18px;" class="form-control" Value="To" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 salary">
+                                    <div class="form-group">
+                                        <input type="text" formControlName="maxSalary" class="form-control" placeholder="25000">
+                                        <p class="warning" *ngIf="hireCandidateForm.controls['maxSalary'].hasError('required') && 
+                                                hireCandidateForm.controls['maxSalary'].touched">
+                                            This field is required.
+                                        </p>
+                                    </div>
+                                </div>  
+                            </div>                         
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            <label class="required">Job Description</label>
+                            <textarea name="your_message" formControlName="jobDescription" (input)="changeTextToUppercase('jobDescription')" rows="3" class="form-control"></textarea>
+                            <p class="warning" *ngIf="hireCandidateForm.controls['jobDescription'].hasError('required') && 
+                                    hireCandidateForm.controls['jobDescription'].touched">
+                                This field is required.
+                            </p>
+                            <label for="file-upload" class="custom-file-upload">
+                                UPLOAD FILE
+                            </label>
+                            <input type="file" name="file" id="file-upload" formControlName="file"
+                                class="form-control-file" ng2FileSelect [uploader]="fileUploader"
+                                (change)="onFileChange($event)">
+                            <p class="{{fileError?'warning':'p'}}">{{file}}</p>
+                            <p class="remark">Images or documents that might be helpful in describing your job</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="required">I WANT CALLS FROM CANDIDATES WITHIN</label>
+                            <br>
+                            <div class="radio-toolbar">
+                                <input type="radio" name="areas" style="margin-left: 30px;" formControlName="areas" id="NEARBYAREAS"
+                                    value="NEARBYAREAS">&nbsp;
+                                <label for="NEARBYAREAS">NEARBY AREAS(UP TO 10/15 KM)</label>
+                                <input type="radio" name="areas" formControlName="areas" id="ANYWHEREINCITY" value="ANYWHEREINCITY">&nbsp;
+                                <label for="ANYWHEREINCITY">ANYWHERE IN CITY</label>
+                            </div>
+                            <p class="warning" *ngIf="hireCandidateForm.controls['areas'].hasError('required') && 
+                                    hireCandidateForm.controls['areas'].touched">
+                                Please select one from above.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="post-job-item">
+                <div class="post-job-heading">
+                    <mat-label>
+                        <h1>Company Details</h1>
+                    </mat-label>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="required">Company Name</label>
+                            <input type="text" formControlName="companyName" (input)="changeTextToUppercase('companyName')" class="form-control" placeholder="Winbrans.com">
+                            <p class="warning" *ngIf="hireCandidateForm.controls['companyName'].hasError('required') && 
+                                    hireCandidateForm.controls['companyName'].touched">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="required">Contact Person Name</label>
+                            <input type="text" formControlName="personName" class="form-control" (input)="changeTextToUppercase('personName')" placeholder="Winbrans.com">
+                            <p class="warning" *ngIf="hireCandidateForm.controls['personName'].hasError('required') && 
+                                    hireCandidateForm.controls['personName'].touched">
+                                This field is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="required">Mobile No.</label>
+                            <input type="text" formControlName="mobileNo" class="form-control">
+                            <p class="warning" *ngIf="hireCandidateForm.controls['mobileNo'].hasError('required') && 
+                                    hireCandidateForm.controls['mobileNo'].touched">
+                                This field is required.
+                            </p>
+                            <p class="remark">REMARK-Candidates will call you on this number.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="required">Email</label>
+                            <input type="text" formControlName="email" class="form-control" (input)="changeTextToUppercase('email')" placeholder="Winbrans.com">
+                            <p class="warning" *ngIf="hireCandidateForm.controls['email'].hasError('required') && 
+                                    hireCandidateForm.controls['email'].touched">
+                                This field is required.
+                            </p>
+                            <p class="remark">REMARK-Candidates will send resumes on this email-id.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="required">Company Address</label>
+                            <textarea type="text" formControlName="address" class="form-control" rows="3" (input)="changeTextToUppercase('address')" placeholder="Winbrans.com"></textarea>
+                            <p class="warning" *ngIf="hireCandidateForm.controls['address'].hasError('required') && 
+                                    hireCandidateForm.controls['address'].touched">
+                                This field is required.
+                            </p>
+                            <p class="remark">REMARK- Please mention job timings correctly otherwise candidates may not join</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="required" >Job Timing</label>
+                            <textarea type="text" formControlName="jobTime" class="form-control" rows="3" (input)="changeTextToUppercase('jobTime')" placeholder="9:30 am - 6:30pm | Monday to Saturday"></textarea>
+                            <p class="warning" *ngIf="hireCandidateForm.controls['jobTime'].hasError('required') && 
+                                    hireCandidateForm.controls['jobTime'].touched">
+                                This field is required.
+                            </p>
+                            <p class="remark">REMARK- Please mention job timings correctly otherwise candidates may not join</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-left">
+                <button type="submit" class="btn create-ac-btn">Post</button>
+            </div>
+        </form>
+    </div>
+</div>
